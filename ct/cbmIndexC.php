@@ -30,13 +30,10 @@ class cbmIndexC extends cbmPageC
   {
     try
     {
-      $this->view->setData('title', 'The mighty index!');
-      $this->view->setData('header', 'Look and see what\'s in store for you:');
-
-      $fr = new cbmArticleFolderReaderM('articles');
+      $fr = new cbmArticleFolderReaderM($this->articleBox);
       $data = $fr->get();
 
-      $this->view->setData('articles', $data);
+      $this->view->setData($this->articleBox, $data);
       $this->view->draw();
     }
     catch (Exception $e)
