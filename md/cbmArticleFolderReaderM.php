@@ -15,7 +15,8 @@ class cbmArticleFolderReaderM
    */
   public function get(): array
   {
-    $data = array();
+    $items = [];
+    $data = [];
     $folder = $_SERVER['DOCUMENT_ROOT'].'/cbm.datastore/'.$this->articleBox;
 
     try

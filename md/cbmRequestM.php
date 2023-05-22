@@ -6,62 +6,73 @@
  */
 class cbmRequestM
 {
-  public $routes = array();
-
   /**
-   * add a route parser
+   * get
    * ________________________________________________________________
    */
-  public function add($path, $onPathMatch)
+  public function get()
   {
-    $this->routes[] = array('path' => $path, 'onPathMatch' => $onPathMatch);
-  }
+    $reqs = [];
+    $reqs = $_GET + $_POST;
+    $reqs = $reqs + $this->pathInfoAssign();
 
-  /**
-   * create a href for links / forms
-   * returns a route if a matching route has been defined
-   * and added via our add function
-   * ________________________________________________________________
-   */
-  public function getReqVar($varName)
-  {
-    $pathInfoArr = $this->parsePathInfo($varName);
-
-    $req = $_GET + $_POST + $pathInfoArr;
-
-    $var = trim($varName);
-    $var = preg_replace("/^(content-type:|bcc:|cc:|to:|from:)/im", "", $var);
-
-    if (isset($req[$varName]))
+    foreach($reqs as &$req)
     {
-      $var = $req[$varName];
-      return $var;
+      $req = trim($req);
+      $req = preg_replace("/^(content-type:|bcc:|cc:|to:|from:)/im", "", $req);
     }
 
-    return false;
+    return $reqs;
   }
 
   /**
-   * do the path_info to "get-param" translation
+   * get path infos
    * ________________________________________________________________
    */
-  protected function parsePathInfo($varName)
+  public function pathInfoAssign()
   {
-    $pathInfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
-    $matches = array();
-    $result = array();
+    $keyVal = [];
+    $segments = [];
+    $numEntrys = null;
+    $pathInfo = '';
 
-    foreach ($this->routes as $route)
+    if (isset($_SERVER['PATH_INFO']))
     {
-      if ((preg_match($route['path'], $pathInfo, $matches)) === 1)
+      $pathInfo = $_SERVER['PATH_INFO'];
+      $segments = explode('/', $pathInfo); // $dummy => PATH_INFO has a leading "/" that creates a fake first entry
+      if (count($segments) > 0)
       {
-        $keyVal = $route['onPathMatch']($matches);
-        $result[$keyVal['key']] = $keyVal['val'];
+        array_splice($segments, 0, 1);
+      }
+      $numEntrys = count($segments);
+
+      switch ($numEntrys)
+      {
+        case 0:
+        break;
+        case 1:
+        break;
+        case 2:
+          $keyVal['mod'] = $segments[0];
+          $keyVal['hook'] = $segments[1];
+        break;
+        case 3:
+          $keyVal['mod'] = $segments[0];
+          $keyVal['hook'] = $segments[1];
+          $keyVal['articleBox'] = $segments[2];
+        break;
+        case 4:
+          $keyVal['mod'] = $segments[0];
+          $keyVal['hook'] = $segments[1];
+          $keyVal['articleBox'] = $segments[2];
+          $keyVal['articleName'] = pathinfo($segments[3], PATHINFO_FILENAME);
+        break;
       }
     }
 
-    return $result;
+    return $keyVal;
   }
+
 }
 
 ?>

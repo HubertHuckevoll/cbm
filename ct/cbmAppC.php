@@ -9,7 +9,7 @@ class cbmAppC
    * Konstruktor
    * ________________________________________________________________
    */
-  public function __construct(string $mainControllerName, string $mainMethodName, $linker = null, $requestM = null)
+  public function __construct(string $mainControllerName, string $mainMethodName)
   {
     $this->mainControllerName = $mainControllerName;
     $this->mainMethodName = $mainMethodName;
@@ -21,15 +21,16 @@ class cbmAppC
    */
   public function runWithPathInfo(): void
   {
-    $dummy = '';
-    $pathInfo = '';
     $modName = '';
     $methodName = '';
+    $rm = new cbmRequestM();
 
-    if (isset($_SERVER['PATH_INFO']))
+    $request = $rm->get();
+
+    if (isset($request['mod']) && isset($request['hook']))
     {
-      $pathInfo = $_SERVER['PATH_INFO'];
-      list($dummy, $modName, $methodName) = explode('/', $pathInfo); // $dummy => PATH_INFO has a leading "/" that creates a fake first entry
+      $modName = $request['mod'];
+      $methodName = $request['hook'];
     }
     else
     {
@@ -58,12 +59,12 @@ class cbmAppC
       }
       else
       {
-        die('Fatal error: Couldn\'t run method "'.$methodName.'" on object "'.$controllerObj.'".');
+        die('Fatal error: Couldn\'t run method "'.$methodName.'" on object "'.$modName.'".');
       }
     }
     catch(Exception $e)
     {
-      die('Fatal error: Couldn\'t instantiate object "'.$controllerObj.'".');
+      die('Fatal error: Couldn\'t instantiate object "'.$modName.'".');
     }
   }
 }
