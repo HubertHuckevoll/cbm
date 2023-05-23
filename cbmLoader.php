@@ -1,16 +1,4 @@
 <?php
-  /**
-   * non-cardboard specific helpers
-   * _________________________________________________________________
-   */
-  //require_once('helpers.php');
-  //require_once('logger.php');
-
-  /**
-   * cardboard specific helpers
-   * _________________________________________________________________
-   */
-  //require_once('globals.php');
 
   /**
    * Auto loader

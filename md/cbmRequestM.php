@@ -13,8 +13,7 @@ class cbmRequestM
   public function get()
   {
     $reqs = [];
-    $reqs = $_GET + $_POST;
-    $reqs = $reqs + $this->pathInfoAssign();
+    $reqs = $_GET + $_POST + $this->pathInfoAssign();
 
     foreach($reqs as &$req)
     {
@@ -39,11 +38,8 @@ class cbmRequestM
     if (isset($_SERVER['PATH_INFO']))
     {
       $pathInfo = $_SERVER['PATH_INFO'];
-      $segments = explode('/', $pathInfo); // $dummy => PATH_INFO has a leading "/" that creates a fake first entry
-      if (count($segments) > 0)
-      {
-        array_splice($segments, 0, 1);
-      }
+      $pathInfo = substr($pathInfo, 1); // PATH_INFO has a leading "/" that creates a fake first entry
+      $segments = explode('/', $pathInfo);
       $numEntrys = count($segments);
 
       switch ($numEntrys)
@@ -65,7 +61,7 @@ class cbmRequestM
           $keyVal['mod'] = $segments[0];
           $keyVal['hook'] = $segments[1];
           $keyVal['articleBox'] = $segments[2];
-          $keyVal['articleName'] = pathinfo($segments[3], PATHINFO_FILENAME);
+          $keyVal['articleName'] = $segments[3];
         break;
       }
     }

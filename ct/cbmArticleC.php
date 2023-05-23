@@ -11,17 +11,10 @@ class cbmArticleC extends cbmPageC
    */
   function __construct($view, $articleBox, $articleName)
   {
-    try
-    {
-      parent::__construct($view);
+    parent::__construct($view);
 
-      $ar = new cbmArticleFileReaderM($articleBox, $articleName);
-      $this->fileContent = $ar->get();
-    }
-    catch(Exception $e)
-    {
-      throw $e;
-    }
+    $ar = new cbmArticleFileReaderM($articleBox, $articleName);
+    $this->fileContent = $ar->get();
   }
 
   /**
@@ -30,18 +23,11 @@ class cbmArticleC extends cbmPageC
    */
   public function index()
   {
-    try
-    {
-      $fp = new cbmHtmlFragmentParserM($this->fileContent);
-      $data = $fp->parse();
-      $this->view->addDataFromArray($data);
+    $fp = new cbmHtmlFragmentParserM($this->fileContent);
+    $data = $fp->parse();
+    $this->view->addDataFromArray($data);
 
-      $this->view->draw();
-    }
-    catch (Exception $e)
-    {
-      throw $e;
-    }
+    $this->view->draw();
   }
 }
 

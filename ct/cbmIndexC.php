@@ -11,15 +11,8 @@ class cbmIndexC extends cbmPageC
    */
   function __construct($view, string $articleBox)
   {
-    try
-    {
-      parent::__construct($view);
-      $this->articleBox = $articleBox;
-    }
-    catch(Exception $e)
-    {
-      throw $e;
-    }
+    parent::__construct($view);
+    $this->articleBox = $articleBox;
   }
 
   /**
@@ -28,18 +21,11 @@ class cbmIndexC extends cbmPageC
    */
   public function index()
   {
-    try
-    {
-      $fr = new cbmArticleFolderReaderM($this->articleBox);
-      $data = $fr->get();
+    $fr = new cbmArticleFolderReaderM($this->articleBox);
+    $data = $fr->get();
 
-      $this->view->setData($this->articleBox, $data);
-      $this->view->draw();
-    }
-    catch (Exception $e)
-    {
-      throw $e;
-    }
+    $this->view->setData($this->articleBox, $data);
+    $this->view->draw();
   }
 }
 

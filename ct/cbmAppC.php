@@ -38,20 +38,20 @@ class cbmAppC
       $methodName = $this->mainMethodName;
     }
 
-    $this->exec($modName, $methodName);
+    $this->exec($request, $modName, $methodName);
   }
 
   /**
    * call the controller
    * ________________________________________________________________
    */
-  protected function exec(string $modName, string $methodName): void
+  protected function exec(array $request, string $modName, string $methodName): void
   {
     $controllerObj = null;
 
     try
     {
-      $controllerObj = new $modName();
+      $controllerObj = new $modName($request);
 
       if ((isset($controllerObj) && method_exists($controllerObj, $methodName)))
       {
@@ -64,7 +64,7 @@ class cbmAppC
     }
     catch(Exception $e)
     {
-      die('Fatal error: Couldn\'t instantiate object "'.$modName.'".');
+      throw $e;
     }
   }
 }
