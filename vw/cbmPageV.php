@@ -38,23 +38,12 @@ class cbmPageV
 
     foreach($matches as $match)
     {
-      $str = '';
       $tag = $match[0]; // <cbm-nav>
       $tagName = $match[1]; // nav
-      $wasExecuted = $this->exec($tagName, $str);
+      $str = ($this->isData($tagName)) ? $this->getData($tagName) : '';
+      $str = $this->exec($tagName, $str);
 
-      if (!$wasExecuted)
-      {
-        if ($this->isData($tagName))
-        {
-          $str = $this->getData($tagName);
-          $this->htmlTemplate = str_replace($tag, $str, $this->htmlTemplate);
-        }
-      }
-      else
-      {
-        $this->htmlTemplate = str_replace($tag, $str, $this->htmlTemplate);
-      }
+      $this->htmlTemplate = str_replace($tag, $str, $this->htmlTemplate);
     }
 
     echo $this->htmlTemplate;
@@ -119,17 +108,13 @@ class cbmPageV
    * execute a draw function dynamically
    * _________________________________________________________________
    */
-  public function exec(string $method, string &$html)
+  public function exec(string $method, string $tagVal)
   {
     if (method_exists($this, $method))
     {
-      $html = $this->$method();
-      return true;
+      $tagVal = $this->$method($tagVal);
     }
-    else
-    {
-      return false;
-    }
+    return $tagVal;
   }
 }
 

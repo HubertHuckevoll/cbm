@@ -2,7 +2,7 @@
 
 class cbmIndexV extends cbmPageV
 {
-  public function content()
+  public function content($tagVal)
   {
     $html  = '';
     $html .= '<ul>';
