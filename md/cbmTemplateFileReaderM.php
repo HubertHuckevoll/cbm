@@ -3,6 +3,7 @@
 class cbmTemplateFileReaderM
 {
   protected string $templName = '';
+  protected string $localViewFolder = './vw/';
 
   public function __construct(string $templName)
   {
@@ -11,7 +12,7 @@ class cbmTemplateFileReaderM
 
   public function get(): string
   {
-    $fname = './vw/'.$this->templName.'.htmlt';
+    $fname = $this->localViewFolder.$this->templName.'.htmlt';
     $fc = file_get_contents($fname);
 
     if ($fc !== false)

@@ -2,6 +2,7 @@
 
 class cbmAppC
 {
+  protected string $store = '';
   protected string $mainControllerName = '';
   protected string $mainMethodName = '';
 
@@ -9,8 +10,9 @@ class cbmAppC
    * Konstruktor
    * ________________________________________________________________
    */
-  public function __construct(string $mainControllerName, string $mainMethodName)
+  public function __construct(string $store, string $mainControllerName, string $mainMethodName)
   {
+    $this->store = $store;
     $this->mainControllerName = $mainControllerName;
     $this->mainMethodName = $mainMethodName;
   }
@@ -51,7 +53,7 @@ class cbmAppC
 
     try
     {
-      $controllerObj = new $modName($request);
+      $controllerObj = new $modName($this->store, $request);
 
       if ((isset($controllerObj) && method_exists($controllerObj, $methodName)))
       {
@@ -59,7 +61,7 @@ class cbmAppC
       }
       else
       {
-        die('Fatal error: Couldn\'t run method "'.$methodName.'" on object "'.$modName.'".');
+        throw new Exception('Fatal error: Couldn\'t run method "'.$methodName.'" on object "'.$modName.'".');
       }
     }
     catch(Exception $e)

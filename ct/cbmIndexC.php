@@ -9,9 +9,9 @@ class cbmIndexC extends cbmPageC
    * Konstruktor
    * _________________________________________________________________
    */
-  function __construct($view, string $articleBox)
+  function __construct(object $view, string $store, string $articleBox)
   {
-    parent::__construct($view);
+    parent::__construct($view, $store);
     $this->articleBox = $articleBox;
   }
 
@@ -19,9 +19,9 @@ class cbmIndexC extends cbmPageC
    * Show Article
    * _________________________________________________________________
    */
-  public function index()
+  public function index(): void
   {
-    $fr = new cbmArticleFolderReaderM($this->articleBox);
+    $fr = new cbmArticleFolderReaderM($this->store, $this->articleBox);
     $data = $fr->get();
 
     $this->view->setData($this->articleBox, $data);

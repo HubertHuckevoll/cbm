@@ -2,31 +2,30 @@
 
 class cbmArticleC extends cbmPageC
 {
-
-  protected string $fileContent = '';
+  protected string $articleBox = '';
+  protected string $articleName = '';
 
   /**
    * Konstruktor
    * _________________________________________________________________
    */
-  function __construct($view, $articleBox, $articleName)
+  function __construct(object $view, string $store, string $articleBox, string $articleName)
   {
-    parent::__construct($view);
-
-    $ar = new cbmArticleFileReaderM($articleBox, $articleName);
-    $this->fileContent = $ar->get();
+    parent::__construct($view, $store);
+    $this->articleBox = $articleBox;
+    $this->articleName = $articleName;
   }
 
   /**
    * Show Article
    * _________________________________________________________________
    */
-  public function index()
+  public function index(): void
   {
-    $fp = new cbmHtmlFragmentParserM($this->fileContent);
-    $data = $fp->parse();
-    $this->view->addDataFromArray($data);
+    $ar = new cbmArticleM($this->store, $this->articleBox, $this->articleName);
+    $data = $ar->get();
 
+    $this->view->addDataFromArray($data);
     $this->view->draw();
   }
 }

@@ -10,7 +10,7 @@ class cbmRequestM
    * get
    * ________________________________________________________________
    */
-  public function get()
+  public function get(): array
   {
     $reqs = [];
     $reqs = $_GET + $_POST + $this->pathInfoAssign();
@@ -28,7 +28,7 @@ class cbmRequestM
    * get path infos
    * ________________________________________________________________
    */
-  public function pathInfoAssign()
+  public function pathInfoAssign(): array
   {
     $keyVal = [];
     $segments = [];

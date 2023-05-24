@@ -2,10 +2,12 @@
 
 class cbmArticleFolderReaderM
 {
+  protected string $store = '';
   protected string $articleBox = '';
 
-  public function __construct(string $articleBox)
+  public function __construct(string $store, string $articleBox)
   {
+    $this->store = $store;
     $this->articleBox = $articleBox;
   }
 
@@ -17,7 +19,7 @@ class cbmArticleFolderReaderM
   {
     $items = [];
     $data = [];
-    $folder = $_SERVER['DOCUMENT_ROOT'].'/cbm.datastore/'.$this->articleBox;
+    $folder = $_SERVER['DOCUMENT_ROOT'].'/'.$this->store.'/'.$this->articleBox;
 
     try
     {

@@ -26,7 +26,7 @@ class cbmPageV
    * replace cbm tags
    * ________________________________________________________________
    */
-  public function draw()
+  public function draw(): void
   {
     $tag = '';
     $tagName = '';
@@ -53,7 +53,7 @@ class cbmPageV
    * add Data From Array
    * _________________________________________________________________
    */
-  public function addDataFromArray(array $data)
+  public function addDataFromArray(array $data): void
   {
     $this->data = array_merge($this->data, $data);
   }
@@ -62,7 +62,7 @@ class cbmPageV
    * replace Data From Array
    * _________________________________________________________________
    */
-  public function replaceDataFromArray(array $data)
+  public function replaceDataFromArray(array $data): void
   {
     $this->reset();
     $this->data = array_merge($this->data, $data);
@@ -72,7 +72,7 @@ class cbmPageV
    * set data key
    * _________________________________________________________________
    */
-  public function setData($key, $val)
+  public function setData(string $key, mixed $val): void
   {
     $this->data[$key] = $val;
   }
@@ -81,7 +81,7 @@ class cbmPageV
    * get data key
    * _________________________________________________________________
    */
-  public function getData($key)
+  public function getData(string $key): mixed
   {
     return $this->data[$key] ?? '';
   }
@@ -90,7 +90,7 @@ class cbmPageV
    * does key/val pair exist?
    * ________________________________________________________________
    */
-  public function isData($key)
+  public function isData(string $key): bool
   {
     return isset($this->data[$key]) ? true : false;
   }
@@ -108,7 +108,7 @@ class cbmPageV
    * execute a draw function dynamically
    * _________________________________________________________________
    */
-  public function exec(string $method, string $tagVal)
+  public function exec(string $method, string $tagVal): mixed
   {
     if (method_exists($this, $method))
     {

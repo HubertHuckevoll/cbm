@@ -2,14 +2,18 @@
 
 class cbmArticleV extends cbmPageV
 {
-  public function section($tagVal)
+  public function section(mixed $tagVal): string
   {
     $html  = '';
     $html .= '<ul>';
+    $imgs = ($this->isData('gallery')) ? $this->getData('gallery') : null;
 
-    foreach($this->getData('gallery') as $img)
+    if ($imgs !== null)
     {
-      $html .= '<li><img src="'.$img.'"></li>';
+      foreach($this->getData('gallery') as $img)
+      {
+        $html .= '<li><img src="'.$img.'"></li>';
+      }
     }
     $html .= '</ul>';
 
