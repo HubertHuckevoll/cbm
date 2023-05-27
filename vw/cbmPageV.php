@@ -2,8 +2,10 @@
 
 class cbmPageV
 {
-  public array $data = []; // model data
-  public string $htmlTemplate = '';
+  protected array $data = [];
+  protected string $templName = '';
+  protected string $htmlTemplate = '';
+  protected string $localViewFolder = './vw/';
 
   /**
    * Konstruktor
@@ -11,14 +13,22 @@ class cbmPageV
    */
   public function __construct(string $templName)
   {
-    try
+    $this->templName = $templName;
+    $this->htmlTemplate = $this->getTemplate();
+  }
+
+  public function getTemplate(): string
+  {
+    $fname = $this->localViewFolder.$this->templName.'.htmlt';
+    $fc = file_get_contents($fname);
+
+    if ($fc !== false)
     {
-      $tfr = new cbmTemplateFileReaderM($templName);
-      $this->htmlTemplate = $tfr->get();
+      return $fc;
     }
-    catch (Exception $e)
+    else
     {
-      throw $e;
+      throw new Exception('Can\'t read file "'.$fname.'"');
     }
   }
 
@@ -32,16 +42,17 @@ class cbmPageV
     $tagName = '';
     $str = '';
     $matches = [];
-    $re = '/<cbm-(.*)>/iuUs';
+    $re = '/<(cbm)-(.*)>/iuUs';
 
     preg_match_all($re, $this->htmlTemplate, $matches, PREG_SET_ORDER, 0);
 
     foreach($matches as $match)
     {
       $tag = $match[0]; // <cbm-nav>
-      $tagName = $match[1]; // nav
-      $str = ($this->isData($tagName)) ? $this->getData($tagName) : '';
-      $str = $this->exec($tagName, $str);
+      $prefix = $match[1]; // cbm
+      $tagName = $match[2]; // nav
+      $func = $prefix.ucfirst($tagName);
+      $str = $this->exec($func);
 
       $this->htmlTemplate = str_replace($tag, $str, $this->htmlTemplate);
     }
@@ -108,13 +119,14 @@ class cbmPageV
    * execute a draw function dynamically
    * _________________________________________________________________
    */
-  public function exec(string $method, string $tagVal): mixed
+  public function exec(string $method): string
   {
+    $str = '';
     if (method_exists($this, $method))
     {
-      $tagVal = $this->$method($tagVal);
+      $str = $this->$method();
     }
-    return $tagVal;
+    return $str;
   }
 }
 

@@ -19,6 +19,7 @@ class cbmArticleFolderReaderM
   {
     $items = [];
     $data = [];
+    $result = [];
     $folder = $_SERVER['DOCUMENT_ROOT'].'/'.$this->store.'/'.$this->articleBox;
 
     try
@@ -30,15 +31,17 @@ class cbmArticleFolderReaderM
 
         foreach($items as $articleName)
         {
-          $date = $this->extractDateFromFilename($articleName);
-          $data[$date] = $this->removeFileExtension($articleName);
+          $data = [];
+          $data['date'] = $this->extractDateFromFilename($articleName);
+          $data['articleName'] = $this->removeFileExtension($articleName);
+          array_push($result, $data);
         }
 
-        krsort($data);
-        return $data;
+        $sortKeyArr = array_column($result, 'date');
+        array_multisort($sortKeyArr, SORT_DESC, $result);
       }
 
-      return $items;
+      return $result;
     }
     catch (Exception $e)
     {

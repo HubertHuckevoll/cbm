@@ -20,12 +20,12 @@ class cbmArticleC extends cbmPageC
    * Show Article
    * _________________________________________________________________
    */
-  public function index(): void
+  public function show(): void
   {
     $ar = new cbmArticleM($this->store, $this->articleBox, $this->articleName);
     $data = $ar->get();
 
-    $this->view->addDataFromArray($data);
+    $this->view->setData('article', $data);
     $this->view->draw();
   }
 }

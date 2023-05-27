@@ -5,7 +5,7 @@ class cbmArticleM
   protected string $store = '';
   protected string $articleBox = '';
   protected string $articleName = '';
-  protected $articleFile = '';
+  protected string $articleFile = '';
 
   public function __construct(string $store, string $articleBox, string $articleName)
   {
@@ -60,18 +60,45 @@ class cbmArticleM
     return $tagVal;
   }
 
-  protected function gallery(string $tagVal): array
+  protected function images(string $tagVal): array
   {
     $result = [];
-    $re = '/<li>(.*)<\/li>/m';
+    $images = [];
+    $rawImgData = [];
+    $finalImgData = [];
+    $re = '';
 
-    preg_match_all($re, $tagVal, $result, PREG_SET_ORDER, 0);
-
-    $result = array_column($result, 1);
-
-    foreach ($result as &$img)
+    $re = '/<img.*>/mU';
+    if (preg_match_all($re, $tagVal, $images, PREG_SET_ORDER, 0) > 0)
     {
-      $img = '/'.$this->store.'/'.$this->articleBox.'.assets/'.$img;
+      $images = array_column($images, 0);
+
+      if (count($images) > 0)
+      {
+        foreach ($images as $img)
+        {
+          $re = '/<img.*src="(.*)".*>/mU';
+          if (preg_match_all($re, $img, $rawImgData, PREG_SET_ORDER, 0) > 0)
+          {
+            if ($rawImgData[0][1] != '')
+            {
+              $finalImgData['src'] = '/'.$this->store.'/'.$this->articleBox.'.assets/'.$rawImgData[0][1];
+
+              $re = '/<img.*alt="(.*)".*>/mU';
+              if (preg_match_all($re, $img, $rawImgData, PREG_SET_ORDER, 0) > 0)
+              {
+                $finalImgData['alt'] = $rawImgData[0][1];
+              }
+              else
+              {
+                $finalImgData['alt'] = '';
+              }
+
+              array_push($result, $finalImgData);
+            }
+          }
+        }
+      }
     }
 
     return $result;

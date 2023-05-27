@@ -16,6 +16,10 @@
         $fname = '/cbm/vw/'.$className.'.php';
       break;
 
+      case 'F':
+        $fname = '/cbm/vw/'.$className.'.php';
+      break;
+
       case 'M':
         $fname = '/cbm/md/'.$className.'.php';
       break;
