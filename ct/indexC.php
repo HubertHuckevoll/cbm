@@ -12,7 +12,7 @@ class indexC extends cbmPageC
 
   public function __construct(string $store, array $request)
   {
-    $pv = new indexV('index');
+    $pv = new indexV('indexV');
     parent::__construct($pv, $store);
   }
 

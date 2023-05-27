@@ -11,7 +11,7 @@ class articleC extends cbmPageC
    */
   public function __construct(string $store, array $request)
   {
-    $pv = new articleV('article');
+    $pv = new articleV('articleV');
     parent::__construct($pv, $store);
 
     $this->articleName = $request['articleName'];
