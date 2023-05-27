@@ -19,7 +19,7 @@ class cbmAppC
    * run with a path pattern of index.php/mod/hook?queryparams=xyz
    * ________________________________________________________________
    */
-  public function runWithPathInfo(): void
+  public function run(): void
   {
     $modName = '';
     $methodName = '';
