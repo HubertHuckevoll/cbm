@@ -1,19 +1,20 @@
 <?php
 
-class cbmArticleC extends cbmPageC
+class articleC extends cbmPageC
 {
-  protected string $articleBox = '';
+  protected string $articleBox = 'entries';
   protected string $articleName = '';
 
   /**
    * Konstruktor
    * _________________________________________________________________
    */
-  function __construct(object $view, string $store, string $articleBox, string $articleName)
+  public function __construct(string $store, array $request)
   {
-    parent::__construct($view, $store);
-    $this->articleBox = $articleBox;
-    $this->articleName = $articleName;
+    $pv = new articleV('article');
+    parent::__construct($pv, $store);
+
+    $this->articleName = $request['articleName'];
   }
 
   /**
@@ -25,6 +26,7 @@ class cbmArticleC extends cbmPageC
     $ar = new cbmArticleM($this->store, $this->articleBox, $this->articleName);
     $data = $ar->get();
 
+    $this->view->setData('meta', ['articleBox' => $this->articleBox]);
     $this->view->setData('article', $data);
     $this->view->draw();
   }

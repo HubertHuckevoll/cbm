@@ -3,18 +3,16 @@
 class cbmAppC
 {
   protected string $store = '';
-  protected string $mainControllerName = '';
-  protected string $mainMethodName = '';
+  protected string $mainControllerName = 'indexC';
+  protected string $mainMethodName = 'show';
 
   /**
    * Konstruktor
    * ________________________________________________________________
    */
-  public function __construct(string $store, string $mainControllerName, string $mainMethodName)
+  public function __construct(string $store)
   {
     $this->store = $store;
-    $this->mainControllerName = $mainControllerName;
-    $this->mainMethodName = $mainMethodName;
   }
 
   /**
