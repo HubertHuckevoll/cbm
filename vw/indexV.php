@@ -2,6 +2,12 @@
 
 class indexV extends cbmPageV
 {
+
+  public function cbmBase()
+  {
+    return $this->renderBaseTag();
+  }
+
   public function cbmHeader()
   {
     $str  = '';

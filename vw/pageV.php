@@ -2,6 +2,11 @@
 
 class articleV extends cbmPageV
 {
+  public function cbmBase()
+  {
+    return $this->renderBaseTag();
+  }
+
   public function cbmTitle()
   {
     return $this->getData('title') ?? '';

@@ -4,15 +4,16 @@
             <title><cbm-title></title>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1/new.min.css">
+            <cbm-base>
         </head>
         <body>
             <header>
                 <h1><cbm-header></h1>
-                <h2><cbm-date></h2>
+                <h3><cbm-date></h3>
             </header>
             <main><cbm-content></main>
             <section><cbm-section></section>
             <aside><cbm-aside></aside>
-            <footer><cbm-footer></footer>
+            <footer><a href="index.php/indexC/show">Zurück</a></footer>
         </body>
     </html>

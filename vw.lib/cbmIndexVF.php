@@ -2,6 +2,14 @@
 
 trait cbmIndexVF
 {
+
+  public function renderBaseTag()
+  {
+    $href = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    $href = substr($href, 0, strrpos($href, 'index.php'));
+    return '<base href="'.$href.'">';
+  }
+
   public function renderIndex(null|array $articles): string
   {
     $html  = '';

@@ -19,7 +19,10 @@ trait cbmArticleVF
       $html .= '<ul>';
       foreach($imgs as $img)
       {
-        $html .= '<li><img src="'.$img['src'].'"><span>'.$img['alt'].'</span></li>';
+        $html .= '<li>'.
+                 '<span>'.$img['alt'].'</span><br>'.
+                 '<img width="250" src="'.$img['src'].'">'.
+                 '</li>';
       }
       $html .= '</ul>';
     }
