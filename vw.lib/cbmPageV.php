@@ -6,7 +6,7 @@ class cbmPageV
   protected string $templName = '';
   protected string $htmlTemplate = '';
   protected string $localViewFolder = '/vw/';
-  protected string $builtInViewFolder = '/cbm/vw.builtIn/';
+  protected string $builtInViewFolder = '/cbm/vw/';
 
   /**
    * Konstruktor

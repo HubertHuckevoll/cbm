@@ -15,24 +15,19 @@ spl_autoload_register(function($className)
   switch($ct)
   {
     case 'V':
-      if (($className == 'articleV') ||
-          ($className == 'indexV') ||
-          ($className == 'pageV'))
-      {
-        $fname = dirname($_SERVER['SCRIPT_FILENAME']).'/vw/'.$className.'.php';
-        if (!file_exists($fname))
-        {
-          $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw.builtIn/'.$className.'.php';
-        }
-      }
-      else
+      $fname = dirname($_SERVER['SCRIPT_FILENAME']).'/vw/'.$className.'.php';
+      if (!file_exists($fname))
       {
         $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw/'.$className.'.php';
+        if (!file_exists($fname))
+        {
+          $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw.lib/'.$className.'.php';
+        }
       }
     break;
 
     case 'F':
-      $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw/'.$className.'.php';
+      $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw.lib/'.$className.'.php';
     break;
 
     case 'M':
@@ -40,15 +35,14 @@ spl_autoload_register(function($className)
     break;
 
     case 'C':
-      if (($className == 'articleC') ||
-          ($className == 'indexC') ||
-          ($className == 'pageC'))
-      {
-        $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/ct.builtIn/'.$className.'.php';
-      }
-      else
+      $fname = dirname($_SERVER['SCRIPT_FILENAME']).'/ct/'.$className.'.php';
+      if (!file_exists($fname))
       {
         $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/ct/'.$className.'.php';
+        if (!file_exists($fname))
+        {
+          $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/ct.lib/'.$className.'.php';
+        }
       }
     break;
   }
