@@ -22,13 +22,16 @@ class cbmArticleM
     $re = '/<cbm-(.*)>(.*)<\/cbm-\1>/iuUs';
 
     preg_match_all($re, $fileContent, $result, PREG_SET_ORDER, 0);
-
     $result = array_column($result, 2, 1);
 
     foreach($result as $tag => &$val)
     {
       $val = $this->exec($tag, $val);
     }
+
+    $result['articleBox'] = $this->articleBox;
+    $result['articleName'] = $this->articleName;
+    $result['date'] = $this->extractDateFromArticleName();
 
     return $result;
   }
@@ -45,6 +48,15 @@ class cbmArticleM
       throw new Exception('Can\'t read file "'.$this->articleFile.'"');
     }
   }
+
+  protected function extractDateFromArticleName(): int
+  {
+    $dateStr = substr($this->articleName, 0, 10).'T00:00:00'; // 2023-09-01 = 10 characters
+    $dateStamp = strtotime($dateStr);
+
+    return $dateStamp;
+  }
+
 
   /**
    * execute a parse function dynamically

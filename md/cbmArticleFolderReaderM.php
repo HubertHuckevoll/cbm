@@ -41,11 +41,6 @@ class cbmArticleFolderReaderM
         array_multisort($sortKeyArr, SORT_DESC, $result);
       }
 
-      $result = [
-        'meta' => ['articleBox' => $this->articleBox],
-        'articles' => $result
-      ];
-
       return $result;
     }
     catch (Exception $e)

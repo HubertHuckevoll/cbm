@@ -2,11 +2,8 @@
     <html>
         <head>
             <title><cbm-title></title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1/new.min.css">
-            <!--link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"-->
-            <!--link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css"-->
-            <!--link rel="stylesheet" href="https://unpkg.com/bamboo.css"-->
-            <!--link rel="stylesheet" href="https://unpkg.com/axist@latest/dist/axist.min.css"-->
         </head>
         <body>
             <header>
@@ -15,7 +12,7 @@
             </header>
             <main><cbm-content></main>
             <section><cbm-section></section>
-            <aside></aside>
-            <footer></footer>
+            <aside><cbm-aside></aside>
+            <footer><cbm-footer></footer>
         </body>
     </html>

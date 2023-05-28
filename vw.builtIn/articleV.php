@@ -6,29 +6,43 @@ class articleV extends cbmPageV
 
   public function cbmTitle()
   {
-    return $this->getData('article')['title'] ?? '';
+    return $this->getData('title') ?? '';
   }
 
   public function cbmHeader()
   {
-    return $this->getData('article')['title'] ?? '';
+    return $this->getData('title') ?? '';
   }
 
   public function cbmDate()
   {
-    return $this->getData('article')['date'] ?? '';
+    $timestamp = $this->getData('date');
+    $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    $formatter = new \IntlDateFormatter($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE);
+
+    return $formatter->format($timestamp);
   }
 
   public function cbmContent()
   {
-    return $this->getData('article')['content'] ?? '';
+    return $this->getData('content') ?? '';
   }
 
   public function cbmSection()
   {
-    $imgs = $this->getData('article')['images'] ?? null;
-    return $this->renderGallery($imgs);
+    return $this->renderGallery($this->getData('images'));
   }
+
+  public function cbmAside()
+  {
+    return '';
+  }
+
+  public function cbmFooter()
+  {
+    return '';
+  }
+
 }
 
 ?>

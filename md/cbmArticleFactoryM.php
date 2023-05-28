@@ -23,20 +23,13 @@ class cbmArticleFactoryM
 
     for ($i = $startIdx; $i < ($startIdx+$num); $i++)
     {
-      if (!isset($indexData['articles'][$i])) break;
+      if (!isset($indexData[$i])) break;
       $data = [];
-      $a = new cbmArticleM($this->store, $this->articleBox, $indexData['articles'][$i]['articleName']);
+      $a = new cbmArticleM($this->store, $this->articleBox, $indexData[$i]['articleName']);
       $data = $a->get();
-      $data['date'] = $indexData['articles'][$i]['date'];
-      $data['articleName'] = $indexData['articles'][$i]['articleName'];
 
       array_push($result, $data);
     }
-
-    $result = [
-      'meta' => ['articleBox' => $this->articleBox],
-      'articles' => $result
-    ];
 
     return $result;
   }

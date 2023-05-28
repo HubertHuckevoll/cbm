@@ -95,21 +95,30 @@ class cbmPageV
   }
 
   /**
-   * get data key
-   * _________________________________________________________________
-   */
-  public function getData(string $key): mixed
-  {
-    return $this->data[$key] ?? '';
-  }
-
-  /**
    * does key/val pair exist?
    * ________________________________________________________________
    */
   public function isData(string $key): bool
   {
     return isset($this->data[$key]) ? true : false;
+  }
+
+  /**
+   * get data for key
+   * _________________________________________________________________
+   */
+  public function getData(string $key): mixed
+  {
+    return $this->data[$key] ?? null;
+  }
+
+  /**
+   * get data key
+   * _________________________________________________________________
+   */
+  public function getDataAll(): array
+  {
+    return $this->data;
   }
 
   /**
