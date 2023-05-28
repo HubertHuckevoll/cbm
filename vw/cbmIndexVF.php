@@ -11,7 +11,7 @@ trait cbmIndexVF
       $html .= '<ul>';
       foreach($articles as $item)
       {
-        $html .= '<li><a href="index.php/articleC/show/entries/'.$item['articleName'].'">'.$item['articleName'].'</a></li>';
+        $html .= '<li><a href="index.php/articleC/show/'.$item['articleName'].'">'.$item['articleName'].'</a></li>';
       }
       $html .= '</ul>';
     }
@@ -29,7 +29,7 @@ trait cbmIndexVF
       foreach($articles as $item)
       {
         $html .= '<li>'.
-                   '<a href="index.php/articleC/show/entries/'.$item['articleName'].'">'.$item['articleName'].'</a>'.
+                   '<a href="index.php/articleC/show/'.$item['articleName'].'">'.$item['articleName'].'</a>'.
                    '<div>'.$item['summary'].'</div>'.
                  '</li>';
       }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <title><cbm-title></title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1/new.min.css">
+            <!--link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"-->
+            <!--link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css"-->
+            <!--link rel="stylesheet" href="https://unpkg.com/bamboo.css"-->
+            <!--link rel="stylesheet" href="https://unpkg.com/axist@latest/dist/axist.min.css"-->
+        </head>
+        <body>
+            <header>
+                <h1><cbm-header></h1>
+                <h2><cbm-date></h2>
+            </header>
+            <main><cbm-content></main>
+            <section><cbm-section></section>
+            <aside></aside>
+            <footer></footer>
+        </body>
+    </html>

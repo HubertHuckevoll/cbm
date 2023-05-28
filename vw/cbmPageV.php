@@ -5,7 +5,8 @@ class cbmPageV
   protected array $data = [];
   protected string $templName = '';
   protected string $htmlTemplate = '';
-  protected string $localViewFolder = './vw/';
+  protected string $localViewFolder = '/vw/';
+  protected string $builtInViewFolder = '/cbm/vw.builtIn/';
 
   /**
    * Konstruktor
@@ -19,7 +20,12 @@ class cbmPageV
 
   public function getTemplate(): string
   {
-    $fname = $this->localViewFolder.$this->templName.'.htmlt';
+    $fname = dirname($_SERVER['SCRIPT_FILENAME']).$this->localViewFolder.$this->templName.'.htmlt';
+    if (!file_exists($fname))
+    {
+      $fname = $_SERVER['DOCUMENT_ROOT'].$this->builtInViewFolder.$this->templName.'.htmlt';
+    }
+
     $fc = file_get_contents($fname);
 
     if ($fc !== false)

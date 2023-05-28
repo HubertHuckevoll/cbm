@@ -48,20 +48,16 @@ class cbmRequestM
         break;
         case 1:
         break;
+
         case 2:
           $keyVal['mod'] = $segments[0];
           $keyVal['hook'] = $segments[1];
         break;
+
         case 3:
           $keyVal['mod'] = $segments[0];
           $keyVal['hook'] = $segments[1];
-          $keyVal['articleBox'] = $segments[2];
-        break;
-        case 4:
-          $keyVal['mod'] = $segments[0];
-          $keyVal['hook'] = $segments[1];
-          $keyVal['articleBox'] = $segments[2];
-          $keyVal['articleName'] = $segments[3];
+          $keyVal['articleName'] = $segments[2];
         break;
       }
     }

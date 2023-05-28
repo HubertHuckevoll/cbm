@@ -1,6 +1,6 @@
 <?php
 
-require_once('../cbm/lb/logger.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/cbm/lb/logger.php');
 
 /**
  * CBM Auto loader
@@ -15,54 +15,51 @@ spl_autoload_register(function($className)
   switch($ct)
   {
     case 'V':
-      $fname = '/cbm/vw/'.$className.'.php';
+      if (($className == 'articleV') ||
+          ($className == 'indexV') ||
+          ($className == 'pageV'))
+      {
+        $fname = dirname($_SERVER['SCRIPT_FILENAME']).'/vw/'.$className.'.php';
+        if (!file_exists($fname))
+        {
+          $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw.builtIn/'.$className.'.php';
+        }
+      }
+      else
+      {
+        $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw/'.$className.'.php';
+      }
     break;
 
     case 'F':
-      $fname = '/cbm/vw/'.$className.'.php';
+      $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw/'.$className.'.php';
     break;
 
     case 'M':
-      $fname = '/cbm/md/'.$className.'.php';
+      $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/md/'.$className.'.php';
     break;
 
     case 'C':
-      $fname = '/cbm/ct/'.$className.'.php';
+      if (($className == 'articleC') ||
+          ($className == 'indexC') ||
+          ($className == 'pageC'))
+      {
+        $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/ct.builtIn/'.$className.'.php';
+      }
+      else
+      {
+        $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/ct/'.$className.'.php';
+      }
     break;
   }
 
   if ($fname !== null)
   {
-    $fname = $_SERVER['DOCUMENT_ROOT'].$fname;
     if (file_exists($fname))
     {
       require_once($fname);
     }
   }
-});
-
-
-/**
- * Project-wise Auto loader for local views
- * ________________________________________________________________
- */
-spl_autoload_register(function($className)
-{
-  $fname = null;
-  $ct = substr($className, -1);
-
-  switch($ct)
-  {
-    case 'V':
-      $fname = './vw/'.$className.'.php';
-    break;
-  }
-
-  if (file_exists($fname))
-  {
-    require_once($fname);
-  }
-
 });
 
 ?>
