@@ -2,6 +2,10 @@
 
 class cbmPageV
 {
+  use cbmArticleVF,
+      cbmIndexVF;
+
+
   protected array $data = [];
   protected string $templName = '';
   protected string $htmlTemplate = '';

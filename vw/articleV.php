@@ -2,8 +2,6 @@
 
 class articleV extends cbmPageV
 {
-  use cbmArticleVF;
-
   public function cbmTitle()
   {
     return $this->getData('title') ?? '';
@@ -17,10 +15,7 @@ class articleV extends cbmPageV
   public function cbmDate()
   {
     $timestamp = $this->getData('date');
-    $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
-    $formatter = new \IntlDateFormatter($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE);
-
-    return $formatter->format($timestamp);
+    return $this->renderDate($timestamp);
   }
 
   public function cbmContent()

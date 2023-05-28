@@ -29,8 +29,9 @@ trait cbmIndexVF
       foreach($articles as $item)
       {
         $html .= '<li>'.
-                   '<a href="index.php/articleC/show/'.$item['articleName'].'">'.$item['articleName'].'</a>'.
+                   '<h4>'.$item['title'].'</h4>'.
                    '<div>'.$item['summary'].'</div>'.
+                   '<a href="index.php/articleC/show/'.$item['articleName'].'">[read]</a>'.
                  '</li>';
       }
       $html .= '</ul>';
