@@ -8,11 +8,7 @@
         <body>
             <header>
                 <h1><cbm-header></h1>
-                <h2><cbm-date></h2>
             </header>
             <main><cbm-content></main>
-            <section><cbm-section></section>
-            <aside></aside>
-            <footer></footer>
         </body>
     </html>
