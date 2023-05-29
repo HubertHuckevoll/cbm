@@ -96,14 +96,14 @@ class cbmArticleM
             {
               $finalImgData['src'] = '/'.$this->store.'/'.$this->articleBox.'.assets/'.$rawImgData[0][1];
 
-              $re = '/<img.*alt="(.*)".*>/mU';
+              $re = '/<img.*title="(.*)".*>/mU';
               if (preg_match_all($re, $img, $rawImgData, PREG_SET_ORDER, 0) > 0)
               {
-                $finalImgData['alt'] = $rawImgData[0][1];
+                $finalImgData['title'] = $rawImgData[0][1];
               }
               else
               {
-                $finalImgData['alt'] = '';
+                $finalImgData['title'] = '';
               }
 
               array_push($result, $finalImgData);

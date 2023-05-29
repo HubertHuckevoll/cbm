@@ -53,16 +53,13 @@ trait cbmArticleVF
 
     if ($imgs !== null)
     {
-      $html .= '<ul>';
       for($i=0; $i < count($imgs); $i++)
       {
         $img = $imgs[$i];
-        $html .= '<li>'.
-                 '<p>'.$img['alt'].'</p>'.
-                 '<a href="index.php/galleryC/show/'.$this->getData('articleName').'?imgIdx='.$i.'"><img width="250" src="'.$img['src'].'"></a>'.
-                 '</li>';
+        $html .= '<a href="index.php/galleryC/show/'.$this->getData('articleName').'?imgIdx='.$i.'">'.
+                    '<img height="250" src="'.$img['src'].'" title="'.$img['title'].'" alt="'.$img['title'].'">'.
+                 '</a>&nbsp;';
       }
-      $html .= '</ul>';
     }
 
     return $html;
@@ -75,7 +72,7 @@ trait cbmArticleVF
   public function renderGallery(): string
   {
     $cur  = $this->getData('images')[$this->getData('curImg')]['src'];
-    $curDesc = $this->getData('images')[$this->getData('curImg')]['alt'];
+    $curDesc = $this->getData('images')[$this->getData('curImg')]['title'];
 
     $prev = 'index.php/galleryC/show/'.$this->getData('articleName').'?imgIdx='.$this->getData('prevImg');
     $next = 'index.php/galleryC/show/'.$this->getData('articleName').'?imgIdx='.$this->getData('nextImg');
@@ -90,7 +87,7 @@ trait cbmArticleVF
             '</div>'.
             '<div>'.
               '<a href="'.$next.'">'.
-                 '<img alt="'.$curDesc.'" src="'.$cur.'" style="cursor: pointer; border: none;" />'.
+                 '<img alt="'.$curDesc.'" title="'.$curDesc.'" src="'.$cur.'" style="cursor: pointer; border: none;" />'.
               '</a>'.
               '<p>'.$curDesc.'</p>'.
             '</div>'.
