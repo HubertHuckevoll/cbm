@@ -31,10 +31,13 @@ class cbmArticleFolderReaderM
 
         foreach($items as $articleName)
         {
-          $data = [];
-          $data['date'] = $this->extractDateFromFilename($articleName);
-          $data['articleName'] = $this->removeFileExtension($articleName);
-          array_push($result, $data);
+          if ($this->getFileExtension($articleName) == 'htmlf')
+          {
+            $data = [];
+            $data['date'] = $this->extractDateFromFilename($articleName);
+            $data['articleName'] = $this->removeFileExtension($articleName);
+            array_push($result, $data);
+          }
         }
 
         $sortKeyArr = array_column($result, 'date');
@@ -56,6 +59,17 @@ class cbmArticleFolderReaderM
   protected function removeFileExtension(string $fname): string
   {
     return pathinfo($fname, PATHINFO_FILENAME);
+  }
+
+  /**
+   * Summary of getFileExtension
+   * @param mixed $fname
+   * @return array|string
+   * ________________________________________________________________
+   */
+  protected function getFileExtension(string $fname): string
+  {
+    return strtolower(pathinfo($fname, PATHINFO_EXTENSION));
   }
 
   /**
