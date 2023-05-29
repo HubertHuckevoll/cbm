@@ -7,12 +7,23 @@ class cbmArticleFactoryM
 
   protected array $indexData = [];
 
+  /**
+   * Summary of __construct
+   * @param mixed $store
+   * @param mixed $articleBox
+   */
   public function __construct($store, $articleBox)
   {
     $this->store = $store;
     $this->articleBox = $articleBox;
   }
 
+  /**
+   * Summary of get
+   * @param mixed $startIdx
+   * @param mixed $num
+   * @return array
+   */
   public function get(int $startIdx, int $num): array
   {
     $box = new cbmArticleFolderReaderM($this->store, $this->articleBox);

@@ -89,7 +89,7 @@ trait cbmArticleVF
               '<a href="'.$next.'">'.
                  '<img alt="'.$curDesc.'" title="'.$curDesc.'" src="'.$cur.'" style="cursor: pointer; border: none;" />'.
               '</a>'.
-              '<p>'.$curDesc.'</p>'.
+              '<p><em>'.$curDesc.'</em></p>'.
             '</div>'.
           '</div>';
 

@@ -3,6 +3,11 @@
 trait cbmIndexVF
 {
 
+  /**
+   * Summary of renderIndex
+   * @param null| $articles
+   * @return string
+   */
   public function renderIndex(null|array $articles): string
   {
     $html  = '';
@@ -20,6 +25,11 @@ trait cbmIndexVF
     return $html;
   }
 
+  /**
+   * Summary of renderIndexWithTeaser
+   * @param null| $articles
+   * @return string
+   */
   public function renderIndexWithTeaser(null|array $articles): string
   {
     $html  = '';

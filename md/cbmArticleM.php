@@ -36,6 +36,11 @@ class cbmArticleM
     return $result;
   }
 
+  /**
+   * Summary of readFile
+   * @throws \Exception
+   * @return bool|string
+   */
   public function readFile(): string
   {
     $fc = file_get_contents($this->articleFile);
@@ -49,6 +54,10 @@ class cbmArticleM
     }
   }
 
+  /**
+   * Summary of extractDateFromArticleName
+   * @return bool|int
+   */
   protected function extractDateFromArticleName(): int
   {
     $dateStr = substr($this->articleName, 0, 10).'T00:00:00'; // 2023-09-01 = 10 characters
@@ -72,6 +81,11 @@ class cbmArticleM
     return $tagVal;
   }
 
+  /**
+   * Summary of images
+   * @param mixed $tagVal
+   * @return array
+   */
   protected function images(string $tagVal): array
   {
     $result = [];
