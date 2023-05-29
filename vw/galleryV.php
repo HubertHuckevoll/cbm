@@ -1,6 +1,6 @@
 <?php
 
-class articleV extends cbmPageV
+class galleryV extends cbmPageV
 {
   public function cbmBase()
   {
@@ -12,19 +12,19 @@ class articleV extends cbmPageV
     return $this->getData('title') ?? '';
   }
 
-  public function cbmHeader()
-  {
-    return $this->getData('title') ?? '';
-  }
-
   public function cbmHead()
   {
     return $this->renderCbmHead();
   }
 
+  public function cbmHeader()
+  {
+    return $this->getData('title') ?? '';
+  }
+
   public function cbmContent()
   {
-    return $this->getData('content') ?? '';
+    return $this->renderGallery();
   }
 }
 

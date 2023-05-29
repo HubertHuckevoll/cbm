@@ -12,6 +12,11 @@ class articleV extends cbmPageV
     return $this->getData('title') ?? '';
   }
 
+  public function cbmHead()
+  {
+    return $this->renderCbmHead();
+  }
+
   public function cbmHeader()
   {
     return $this->getData('title') ?? '';
@@ -23,26 +28,15 @@ class articleV extends cbmPageV
     return $this->renderDate($timestamp);
   }
 
-  public function cbmContent()
+  public function cbmArticle()
   {
     return $this->getData('content') ?? '';
   }
 
-  public function cbmSection()
+  public function cbmImages()
   {
-    return $this->renderGallery($this->getData('images'));
+    return $this->renderImageList();
   }
-
-  public function cbmAside()
-  {
-    return '';
-  }
-
-  public function cbmFooter()
-  {
-    return '';
-  }
-
 }
 
 ?>

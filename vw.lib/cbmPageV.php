@@ -2,9 +2,9 @@
 
 class cbmPageV
 {
-  use cbmArticleVF,
+  use cbmToolsVF,
+      cbmArticleVF,
       cbmIndexVF;
-
 
   protected array $data = [];
   protected string $templName = '';

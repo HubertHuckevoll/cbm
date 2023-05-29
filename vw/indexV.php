@@ -11,8 +11,14 @@ class indexV extends cbmPageV
   public function cbmHeader()
   {
     $str  = '';
-    $str .= ucfirst($this->getDataAll()[0]['articleBox']) ?? '';
+    //$str .= ucfirst($this->getDataAll()[0]['articleBox']) ?? '';
+    $str = $_SERVER['SERVER_NAME'];
     return $str;
+  }
+
+  public function cbmHead()
+  {
+    return $this->renderCbmHead();
   }
 
   public function cbmContent()
