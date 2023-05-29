@@ -5,12 +5,12 @@ trait cbmIndexVF
 
   /**
    * Summary of renderIndex
-   * @param null| $articles
    * @return string
    */
-  public function renderIndex(null|array $articles): string
+  public function renderIndex(): string
   {
     $html  = '';
+    $articles = $this->getData('articles');
 
     if ($articles !== null)
     {
@@ -27,12 +27,12 @@ trait cbmIndexVF
 
   /**
    * Summary of renderIndexWithTeaser
-   * @param null| $articles
    * @return string
    */
-  public function renderIndexWithTeaser(null|array $articles): string
+  public function renderIndexWithTeaser(): string
   {
     $html  = '';
+    $articles = $this->getData('articles');
 
     if ($articles !== null)
     {

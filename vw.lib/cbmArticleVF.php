@@ -11,31 +11,24 @@ trait cbmArticleVF
   {
     $str = '';
     $url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-    $image0 = '';
-
-    if (isset($this->getData('images')[0]))
-    {
-      $image0 = $this->getData('images')[0]['src'];
-    }
+    $image0 = $this->getData('images')[0]['src'] ?? null;
 
     $str .= '<meta name="description" content="'.($this->getData('summary') ?? '').'">';
     $str .= '<meta name="author" content="'.($this->getData('author') ?? $_SERVER['SERVER_NAME']).'">';
-    $imageStr = ($image0 !== '') ? '<meta property="og:image" content="'.$image0.'">' : '';
-    $str .= $imageStr;
+    $str .= ($image0 !== null) ? '<meta property="og:image" content="'.$image0.'">' : '';
     $str .= '<meta property="og:title" content="'.htmlentities($this->getData('title') ?? '').'">';
     $str .= '<meta property="og:description" content="'.htmlentities($this->getData('summary') ?? '').'">';
     $str .= '<meta property="og:type" content="Website">';
     $str .= '<meta property="og:url" content="'.$url.'">';
     $str .= '<meta property="og:site_name" content="'.$_SERVER['SERVER_NAME'].'">';
 
-    $imageStr = ($image0 != '') ? '"image": ["'.$image0.'"]' : '';
     $str .= '<script type="application/ld+json">'.
             '{'.
                '"@context": "https://schema.org",'.
                '"@type": "NewsArticle",'.
                '"headline": "'.$this->getData('title').'",'.
                '"dateModified": "'.$this->getData('date').'",'.
-               $imageStr.
+               (($image0 != '') ? '"image": ["'.$image0.'"]' : '').
             '}'.
             '</script>';
 

@@ -11,7 +11,6 @@ class indexV extends cbmPageV
   public function cbmHeader()
   {
     $str  = '';
-    //$str .= ucfirst($this->getDataAll()[0]['articleBox']) ?? '';
     $str = $_SERVER['SERVER_NAME'];
     return $str;
   }
@@ -23,7 +22,7 @@ class indexV extends cbmPageV
 
   public function cbmContent()
   {
-    return $this->renderIndexWithTeaser($this->data);
+    return $this->renderIndexWithTeaser();
   }
 }
 
