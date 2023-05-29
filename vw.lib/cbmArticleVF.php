@@ -82,17 +82,17 @@ trait cbmArticleVF
 
     $erg = '<div>'.
             '<div>'.
-              '<div>'.
+              '<p>'.
                 '<a href="'.$prev.'" title="Voriges Bild"><button>&laquo;</button></a>&nbsp;'.
                 '<a href="'.$next.'" title="Nächstes Bild"><button>&raquo;</button></a>&nbsp;'.
                 '<a href="index.php/articleC/show/'.$this->getData('articleName').'" title="Zur&uuml;ck"><button>x</button></a>'.
-              '</div>'.
-              '<div>'.$curDesc.'</div>'.
+              '</p>'.
             '</div>'.
             '<div>'.
               '<a href="'.$next.'">'.
                  '<img alt="'.$curDesc.'" src="'.$cur.'" style="cursor: pointer; border: none;" />'.
               '</a>'.
+              '<p>'.$curDesc.'</p>'.
             '</div>'.
           '</div>';
 
