@@ -16,9 +16,9 @@ class indexV extends cbmPageV
     return $str;
   }
 
-  public function cbmHead()
+  public function cbmCss()
   {
-    return $this->renderCbmHead();
+    return $this->renderCbmCSS();
   }
 
   public function cbmContent()
