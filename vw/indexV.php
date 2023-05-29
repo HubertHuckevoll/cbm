@@ -22,7 +22,12 @@ class indexV extends cbmPageV
 
   public function cbmContent()
   {
-    return $this->renderIndexWithTeaser();
+    $html  = '';
+    $html .= $this->renderIndexWithTeaser();
+    $html .= '<hr>';
+    $html .= $this->renderArticleBoxPageNumbers();
+
+    return $html;
   }
 }
 

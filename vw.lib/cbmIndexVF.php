@@ -10,7 +10,7 @@ trait cbmIndexVF
   public function renderIndex(): string
   {
     $html  = '';
-    $articles = $this->getData('articles');
+    $articles = $this->getData('cbm_articles');
 
     if ($articles !== null)
     {
@@ -32,7 +32,7 @@ trait cbmIndexVF
   public function renderIndexWithTeaser(): string
   {
     $html  = '';
-    $articles = $this->getData('articles');
+    $articles = $this->getData('cbm_articles');
 
     if ($articles !== null)
     {
@@ -46,6 +46,32 @@ trait cbmIndexVF
                  '</li>';
       }
       $html .= '</ul>';
+    }
+
+    return $html;
+  }
+
+  /**
+   * Summary of renderArticleBoxPageNumbers
+   * @return string
+   * ________________________________________________________________
+   */
+  public function renderArticleBoxPageNumbers(): string
+  {
+    $html = '';
+    $page = $this->getData('cbm_articleBoxPage');
+    $maxPage = $this->getData('cbm_maxPage');
+
+    for ($i = 0; $i < $maxPage; $i++)
+    {
+      if ($i == $page)
+      {
+        $html .= '<span>'.($i+1).'</span>&nbsp;';
+      }
+      else
+      {
+        $html .= '<a href="index.php/indexC/show?page='.$i.'"><button>'.($i+1).'</button></a>&nbsp;';
+      }
     }
 
     return $html;

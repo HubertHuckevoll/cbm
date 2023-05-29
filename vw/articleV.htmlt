@@ -17,6 +17,6 @@
                 <article><cbm-article></article>
                 <section><cbm-images></section>
             </main>
-            <footer><a href="index.php/indexC/show">Zurück</a></footer>
+            <footer><cbm-footer></footer>
         </body>
     </html>

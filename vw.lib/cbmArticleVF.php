@@ -64,11 +64,11 @@ trait cbmArticleVF
    */
   public function renderGallery(): string
   {
-    $cur  = $this->getData('images')[$this->getData('curImg')]['src'];
-    $curDesc = $this->getData('images')[$this->getData('curImg')]['title'];
+    $cur  = $this->getData('images')[$this->getData('cbm_curImg')]['src'];
+    $curDesc = $this->getData('images')[$this->getData('cbm_curImg')]['title'];
 
-    $prev = 'index.php/galleryC/show/'.$this->getData('articleName').'?imgIdx='.$this->getData('prevImg');
-    $next = 'index.php/galleryC/show/'.$this->getData('articleName').'?imgIdx='.$this->getData('nextImg');
+    $prev = 'index.php/galleryC/show/'.$this->getData('articleName').'?imgIdx='.$this->getData('cbm_prevImg');
+    $next = 'index.php/galleryC/show/'.$this->getData('articleName').'?imgIdx='.$this->getData('cbm_nextImg');
 
     $erg = '<div>'.
             '<div>'.

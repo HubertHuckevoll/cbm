@@ -42,6 +42,11 @@ class articleV extends cbmPageV
   {
     return $this->renderImageList();
   }
+
+  public function cbmFooter()
+  {
+    return '<a href="index.php/indexC/show?page='.$this->getData('cbm_articleBoxPage').'">Zurück</a>';
+  }
 }
 
 ?>

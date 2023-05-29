@@ -33,9 +33,9 @@ class galleryC extends cbmPageC
     $nextImg = isset($data['images'][$this->imgIdx + 1]) ? ($this->imgIdx + 1) : 0;
 
     $this->view->addDataFromArray($data);
-    $this->view->setData('curImg', $curImg);
-    $this->view->setData('nextImg', $nextImg);
-    $this->view->setData('prevImg', $prevImg);
+    $this->view->setData('cbm_curImg', $curImg);
+    $this->view->setData('cbm_nextImg', $nextImg);
+    $this->view->setData('cbm_prevImg', $prevImg);
 
     $this->view->draw();
   }
