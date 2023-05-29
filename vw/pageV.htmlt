@@ -9,6 +9,10 @@
             <header>
                 <h1><cbm-header></h1>
             </header>
-            <main><cbm-content></main>
+            <main>
+                <article>
+                    <cbm-content>
+                </article>
+            </main>
         </body>
     </html>

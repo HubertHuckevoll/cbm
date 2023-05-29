@@ -3,6 +3,7 @@
         <head>
             <title><cbm-title></title>
             <cbm-head>
+            <cbm-metadata>
             <cbm-base>
         </head>
         <body>

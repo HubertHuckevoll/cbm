@@ -4,6 +4,45 @@ trait cbmArticleVF
 {
 
   /**
+   * Summary of renderMetadata
+   * @return string
+   */
+  public function renderMetadata(): string
+  {
+    $str = '';
+    $url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    $image0 = '';
+
+    if (isset($this->getData('images')[0]))
+    {
+      $image0 = $this->getData('images')[0]['src'];
+    }
+
+    $str .= '<meta name="description" content="'.($this->getData('summary') ?? '').'">';
+    $str .= '<meta name="author" content="'.($this->getData('author') ?? $_SERVER['SERVER_NAME']).'">';
+    $imageStr = ($image0 !== '') ? '<meta property="og:image" content="'.$image0.'">' : '';
+    $str .= $imageStr;
+    $str .= '<meta property="og:title" content="'.htmlentities($this->getData('title') ?? '').'">';
+    $str .= '<meta property="og:description" content="'.htmlentities($this->getData('summary') ?? '').'">';
+    $str .= '<meta property="og:type" content="Website">';
+    $str .= '<meta property="og:url" content="'.$url.'">';
+    $str .= '<meta property="og:site_name" content="'.$_SERVER['SERVER_NAME'].'">';
+
+    $imageStr = ($image0 != '') ? '"image": ["'.$image0.'"]' : '';
+    $str .= '<script type="application/ld+json">'.
+            '{'.
+               '"@context": "https://schema.org",'.
+               '"@type": "NewsArticle",'.
+               '"headline": "'.$this->getData('title').'",'.
+               '"dateModified": "'.$this->getData('date').'",'.
+               $imageStr.
+            '}'.
+            '</script>';
+
+    return $str;
+  }
+
+  /**
    * Summary of renderImageList
    * @return string
    */
@@ -33,7 +72,7 @@ trait cbmArticleVF
    * Summary of renderGallery
    * @return string
    */
-  public function renderGallery()
+  public function renderGallery(): string
   {
     $cur  = $this->getData('images')[$this->getData('curImg')]['src'];
     $curDesc = $this->getData('images')[$this->getData('curImg')]['alt'];

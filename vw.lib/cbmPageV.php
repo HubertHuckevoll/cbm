@@ -129,7 +129,7 @@ class cbmPageV
    * reset data
    * _________________________________________________________________
    */
-  public function reset()
+  public function reset(): void
   {
     $this->data = [];
   }

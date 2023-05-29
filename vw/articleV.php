@@ -17,6 +17,11 @@ class articleV extends cbmPageV
     return $this->renderCbmHead();
   }
 
+  public function cbmMetadata()
+  {
+    return $this->renderMetadata();
+  }
+
   public function cbmHeader()
   {
     return $this->getData('title') ?? '';
