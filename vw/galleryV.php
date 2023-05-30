@@ -9,7 +9,7 @@ class galleryV extends cbmPageV
 
   public function cbmTitle()
   {
-    return $this->getData('title') ?? '';
+    return $this->get('article', 'title') ?? '';
   }
 
   public function cbmCss()
@@ -19,7 +19,7 @@ class galleryV extends cbmPageV
 
   public function cbmHeader()
   {
-    return $this->getData('title') ?? '';
+    return $this->get('article', 'title') ?? '';
   }
 
   public function cbmContent()

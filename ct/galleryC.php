@@ -28,14 +28,14 @@ class galleryC extends cbmPageC
     $ar = new cbmArticleM($this->store, $this->articleBox, $this->articleName);
     $data = $ar->get();
 
-    $curImg = $this->imgIdx;
-    $prevImg = isset($data['images'][$this->imgIdx - 1]) ? ($this->imgIdx - 1) : (count($data['images']) - 1);
-    $nextImg = isset($data['images'][$this->imgIdx + 1]) ? ($this->imgIdx + 1) : 0;
+    $curIdx = $this->imgIdx;
+    $prevIdx = isset($data['images'][$this->imgIdx - 1]) ? ($this->imgIdx - 1) : (count($data['images']) - 1);
+    $nextIdx = isset($data['images'][$this->imgIdx + 1]) ? ($this->imgIdx + 1) : 0;
 
-    $this->view->addDataFromArray($data);
-    $this->view->setData('cbm_curImg', $curImg);
-    $this->view->setData('cbm_nextImg', $nextImg);
-    $this->view->setData('cbm_prevImg', $prevImg);
+    $this->view->set('article', $data);
+    $this->view->set('gallery', 'curIdx', $curIdx);
+    $this->view->set('gallery', 'nextIdx', $nextIdx);
+    $this->view->set('gallery', 'prevIdx', $prevIdx);
 
     $this->view->draw();
   }

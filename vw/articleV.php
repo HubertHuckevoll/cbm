@@ -9,7 +9,7 @@ class articleV extends cbmPageV
 
   public function cbmTitle()
   {
-    return $this->getData('title') ?? '';
+    return $this->get('article', 'title') ?? '';
   }
 
   public function cbmCss()
@@ -24,18 +24,18 @@ class articleV extends cbmPageV
 
   public function cbmHeader()
   {
-    return $this->getData('title') ?? '';
+    return $this->get('article', 'title') ?? '';
   }
 
   public function cbmDate()
   {
-    $timestamp = $this->getData('date');
+    $timestamp = $this->get('article', 'date');
     return $this->renderDate($timestamp);
   }
 
   public function cbmArticle()
   {
-    return $this->getData('content') ?? '';
+    return $this->get('article', 'content') ?? '';
   }
 
   public function cbmImages()
@@ -45,7 +45,7 @@ class articleV extends cbmPageV
 
   public function cbmFooter()
   {
-    return '<a href="index.php/indexC/show?page='.$this->getData('cbm_articleBoxPage').'">Zurück</a>';
+    return '<a href="index.php/indexC/show?page='.$this->get('index', 'articleBoxPage').'">Zurück</a>';
   }
 }
 

@@ -40,9 +40,9 @@ class indexC extends cbmPageC
     $af = new cbmArticleFactoryM($this->store, $this->articleBox);
     $data = $af->get(($page * $this->articlesPerPage), $this->articlesPerPage);
 
-    $this->view->setData('cbm_maxPage', $maxPage);
-    $this->view->setData('cbm_articleBoxPage', $page);
-    $this->view->setData('cbm_articles', $data);
+    $this->view->set('index', 'maxPage', $maxPage);
+    $this->view->set('index', 'page', $page);
+    $this->view->set('articles', $data);
     $this->view->draw();
   }
 

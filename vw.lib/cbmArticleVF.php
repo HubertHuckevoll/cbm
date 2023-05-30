@@ -11,13 +11,17 @@ trait cbmArticleVF
   {
     $str = '';
     $url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-    $image0 = $this->getData('images')[0]['src'] ?? null;
+    $image0 = $this->get('article', 'images')[0]['src'] ?? null;
+    $summary = $this->get('article', 'summary') ?? '';
+    $author = $this->get('article', 'author') ?? $_SERVER['SERVER_NAME'];
+    $title = $this->get('article', 'title') ?? '';
+    $date = $this->get('article', 'date') ?? '';
 
-    $str .= '<meta name="description" content="'.($this->getData('summary') ?? '').'">';
-    $str .= '<meta name="author" content="'.($this->getData('author') ?? $_SERVER['SERVER_NAME']).'">';
+    $str .= '<meta name="description" content="'.$summary.'">';
+    $str .= '<meta name="author" content="'.$author.'">';
     $str .= ($image0 !== null) ? '<meta property="og:image" content="'.$image0.'">' : '';
-    $str .= '<meta property="og:title" content="'.htmlentities($this->getData('title') ?? '').'">';
-    $str .= '<meta property="og:description" content="'.htmlentities($this->getData('summary') ?? '').'">';
+    $str .= '<meta property="og:title" content="'.htmlentities($title).'">';
+    $str .= '<meta property="og:description" content="'.htmlentities($summary).'">';
     $str .= '<meta property="og:type" content="Website">';
     $str .= '<meta property="og:url" content="'.$url.'">';
     $str .= '<meta property="og:site_name" content="'.$_SERVER['SERVER_NAME'].'">';
@@ -26,8 +30,8 @@ trait cbmArticleVF
             '{'.
                '"@context": "https://schema.org",'.
                '"@type": "NewsArticle",'.
-               '"headline": "'.$this->getData('title').'",'.
-               '"dateModified": "'.$this->getData('date').'",'.
+               '"headline": "'.$title.'",'.
+               '"dateModified": "'.date('c', $date).'",'.
                (($image0 != '') ? '"image": ["'.$image0.'"]' : '').
             '}'.
             '</script>';
@@ -42,14 +46,15 @@ trait cbmArticleVF
   public function renderImageList(): string
   {
     $html  = '';
-    $imgs = $this->getData('images');
+    $imgs = $this->get('article', 'images');
+    $name = $this->get('article', 'articleName');
 
     if ($imgs !== null)
     {
       for($i=0; $i < count($imgs); $i++)
       {
         $img = $imgs[$i];
-        $html .= '<a href="index.php/galleryC/show/'.$this->getData('articleName').'?imgIdx='.$i.'">'.
+        $html .= '<a href="index.php/galleryC/show/'.$name.'?imgIdx='.$i.'">'.
                     '<img height="250" src="'.$img['src'].'" title="'.$img['title'].'" alt="'.$img['title'].'">'.
                  '</a>&nbsp;';
       }
@@ -64,18 +69,23 @@ trait cbmArticleVF
    */
   public function renderGallery(): string
   {
-    $cur  = $this->getData('images')[$this->getData('cbm_curImg')]['src'];
-    $curDesc = $this->getData('images')[$this->getData('cbm_curImg')]['title'];
+    $curIdx = $this->get('gallery', 'curIdx');
+    $nextIdx = $this->get('gallery', 'nextIdx');
+    $prevIdx = $this->get('gallery', 'prevIdx');
 
-    $prev = 'index.php/galleryC/show/'.$this->getData('articleName').'?imgIdx='.$this->getData('cbm_prevImg');
-    $next = 'index.php/galleryC/show/'.$this->getData('articleName').'?imgIdx='.$this->getData('cbm_nextImg');
+    $cur     = $this->get('article', 'images')[$curIdx]['src'];
+    $curDesc = $this->get('article', 'images')[$curIdx]['title'];
+    $articleName = $this->get('article', 'articleName');
+
+    $prev = 'index.php/galleryC/show/'.$articleName.'?imgIdx='.$prevIdx;
+    $next = 'index.php/galleryC/show/'.$articleName.'?imgIdx='.$nextIdx;
 
     $erg = '<div>'.
             '<div>'.
               '<p>'.
                 '<a href="'.$prev.'" title="Voriges Bild"><button>&laquo;</button></a>&nbsp;'.
                 '<a href="'.$next.'" title="Nächstes Bild"><button>&raquo;</button></a>&nbsp;'.
-                '<a href="index.php/articleC/show/'.$this->getData('articleName').'" title="Zur&uuml;ck"><button>x</button></a>'.
+                '<a href="index.php/articleC/show/'.$articleName.'" title="Zur&uuml;ck"><button>x</button></a>'.
               '</p>'.
             '</div>'.
             '<div>'.

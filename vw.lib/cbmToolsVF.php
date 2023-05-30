@@ -20,7 +20,7 @@ trait cbmToolsVF
    * @param mixed $timestamp
    * @return bool|string
    */
-  public function renderDate(int $timestamp): string
+  public function renderDate(int $timestamp): bool|string
   {
     $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
     $formatter = new \IntlDateFormatter($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE);

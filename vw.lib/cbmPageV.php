@@ -71,56 +71,58 @@ class cbmPageV
   }
 
   /**
-   * add Data From Array
-   * _________________________________________________________________
-   */
-  public function addDataFromArray(array $data): void
-  {
-    $this->data = array_merge($this->data, $data);
-  }
-
-  /**
-   * replace Data From Array
-   * _________________________________________________________________
-   */
-  public function replaceDataFromArray(array $data): void
-  {
-    $this->reset();
-    $this->data = array_merge($this->data, $data);
-  }
-
-  /**
    * set data key
    * _________________________________________________________________
    */
-  public function setData(string $key, mixed $val): void
+  public function set(string $key1, mixed $key2orVal, mixed $val = null): void
   {
-    $this->data[$key] = $val;
+    if (isset($val))
+    {
+      $this->data[$key1][$key2orVal] = $val;
+    }
+    else
+    {
+      $this->data[$key1] = $key2orVal;
+    }
   }
 
   /**
    * does key/val pair exist?
    * ________________________________________________________________
    */
-  public function isData(string $key): bool
+  public function is(string $key, mixed $key2 = null): bool
   {
-    return isset($this->data[$key]) ? true : false;
+    if (isset($key2))
+    {
+      return isset($this->data[$key][$key2]) ? true : false;
+    }
+    else
+    {
+      return isset($this->data[$key]) ? true : false;
+    }
   }
 
   /**
    * get data for key
    * _________________________________________________________________
    */
-  public function getData(string $key): mixed
+  public function get(string $key, mixed $key2 = null): mixed
   {
-    return $this->data[$key] ?? null;
+    if (isset($key2))
+    {
+      return $this->data[$key][$key2] ?? null;
+    }
+    else
+    {
+      return $this->data[$key] ?? null;
+    }
   }
 
   /**
    * get data key
    * _________________________________________________________________
    */
-  public function getDataAll(): array
+  public function getAll(): array
   {
     return $this->data;
   }

@@ -26,7 +26,7 @@ class pageC extends cbmPageC
     $ar = new cbmArticleM($this->store, $this->articleBox, $this->articleName);
     $data = $ar->get();
 
-    $this->view->addDataFromArray($data);
+    $this->view->set('article', $data);
     $this->view->draw();
   }
 }
