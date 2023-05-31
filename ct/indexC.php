@@ -34,7 +34,7 @@ class indexC extends cbmPageC
     $fr = new cbmArticleFolderReaderM($this->store, $this->articleBox);
     $names = $fr->get();
     $maxPage = ceil(count($names) / $this->articlesPerPage);
-    $page = ($this->requestedPage < $maxPage) ? $this->requestedPage : $maxPage;
+    $page = ($this->requestedPage < $maxPage) ? $this->requestedPage : 0;
     if ($page < 0) $page = 0;
 
     $af = new cbmArticleFactoryM($this->store, $this->articleBox);
