@@ -49,24 +49,18 @@ class cbmAppC
   {
     $controllerObj = null;
 
-    try
-    {
-      $controllerObj = new $modName($this->store, $request);
+    $controllerObj = new $modName($this->store, $request);
 
-      if ((isset($controllerObj) && method_exists($controllerObj, $methodName)))
-      {
-        call_user_func(array($controllerObj, $methodName));
-      }
-      else
-      {
-        throw new Exception('Fatal error: Couldn\'t run method "'.$methodName.'" on object "'.$modName.'".');
-      }
-    }
-    catch(Exception $e)
+    if ((isset($controllerObj) && method_exists($controllerObj, $methodName)))
     {
-      throw $e;
+      call_user_func(array($controllerObj, $methodName));
+    }
+    else
+    {
+      redirect();
     }
   }
+
 }
 
 ?>

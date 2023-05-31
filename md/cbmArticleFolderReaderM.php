@@ -46,7 +46,7 @@ class cbmArticleFolderReaderM
 
       return $result;
     }
-    catch (Exception $e)
+    catch (Throwable $e)
     {
       throw new Exception('Couldn\'t read contens of folder "'.$folder.'"');
     }

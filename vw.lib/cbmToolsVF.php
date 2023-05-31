@@ -28,22 +28,6 @@ trait cbmToolsVF
     return $formatter->format($timestamp);
   }
 
-  /**
-   * Summary of renderCbmHead
-   * @return string
-   */
-  public function renderCbmCSS(): string
-  {
-    $html  = '';
-    $html .= '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1/new.min.css">';
-             //'<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">';
-             //'<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">';
-             //'<link rel="stylesheet" href="https://unpkg.com/marx-css/css/marx.min.css">';
-             //'<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css">';
-
-    return $html;
-  }
-
 }
 
 ?>

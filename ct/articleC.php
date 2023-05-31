@@ -15,6 +15,7 @@ class articleC extends cbmPageC
     $pv = new articleV('articleV');
     parent::__construct($pv, $store);
 
+    if (!isset($request['articleName'])) redirect();
     $this->articleName = $request['articleName'];
   }
 

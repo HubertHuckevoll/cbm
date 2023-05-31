@@ -12,11 +12,6 @@ class galleryV extends cbmPageV
     return $this->get('article', 'title') ?? '';
   }
 
-  public function cbmCss()
-  {
-    return $this->renderCbmCSS();
-  }
-
   public function cbmHeader()
   {
     return $this->get('article', 'title') ?? '';

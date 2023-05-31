@@ -15,8 +15,9 @@ class galleryC extends cbmPageC
     $pv = new galleryV('galleryV');
     parent::__construct($pv, $store);
 
+    if (!isset($request['articleName'])) redirect();
     $this->articleName = $request['articleName'];
-    $this->imgIdx = $request['imgIdx'];
+    $this->imgIdx = $request['imgIdx'] ?? 0;
   }
 
   /**
@@ -28,9 +29,11 @@ class galleryC extends cbmPageC
     $ar = new cbmArticleM($this->store, $this->articleBox, $this->articleName);
     $data = $ar->get();
 
-    $curIdx = $this->imgIdx;
+    $curIdx  = isset($data['images'][$this->imgIdx]) ? $this->imgIdx : 0;
     $prevIdx = isset($data['images'][$this->imgIdx - 1]) ? ($this->imgIdx - 1) : (count($data['images']) - 1);
     $nextIdx = isset($data['images'][$this->imgIdx + 1]) ? ($this->imgIdx + 1) : 0;
+
+    logger::vh($curIdx, $prevIdx, $nextIdx);
 
     $this->view->set('article', $data);
     $this->view->set('gallery', 'curIdx', $curIdx);

@@ -12,11 +12,6 @@ class articleV extends cbmPageV
     return $this->get('article', 'title') ?? '';
   }
 
-  public function cbmCss()
-  {
-    return $this->renderCbmCSS();
-  }
-
   public function cbmMetadata()
   {
     return $this->renderMetadata();

@@ -29,8 +29,9 @@ trait cbmArticleVF
     $str .= '<script type="application/ld+json">'.
             '{'.
                '"@context": "https://schema.org",'.
-               '"@type": "NewsArticle",'.
+               '"@type": "Article",'.
                '"headline": "'.$title.'",'.
+               '"author": "'.$author.'",'.
                '"dateModified": "'.date('c', $date).'",'.
                (($image0 != '') ? '"image": ["'.$image0.'"]' : '').
             '}'.

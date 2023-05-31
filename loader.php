@@ -3,6 +3,25 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/cbm/lb/logger.php');
 
 /**
+ * FIXME
+ * This function shouldn't be here.
+ * Put in a trait or a base class or something
+ * __________________________________________________________________
+ */
+function redirect()
+{
+  $prot = ($_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+
+  $href = '';
+  $href = dirname($_SERVER['PHP_SELF']);
+  $href = substr($href, 0, strrpos($href, 'index.php'));
+  $href = rtrim($href, '/\\');
+  $href = $prot.$_SERVER['HTTP_HOST'].$href.'/index.php/indexC/show';
+
+  header('Location: '.$href);
+}
+
+/**
  * CBM Auto loader
  * ________________________________________________________________
  */

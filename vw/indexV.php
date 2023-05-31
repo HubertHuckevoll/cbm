@@ -8,16 +8,18 @@ class indexV extends cbmPageV
     return $this->renderBaseTag();
   }
 
-  public function cbmHeader()
+  public function cbmTitle()
   {
     $str  = '';
     $str = $_SERVER['SERVER_NAME'];
     return $str;
   }
 
-  public function cbmCss()
+  public function cbmHeader()
   {
-    return $this->renderCbmCSS();
+    $str  = '';
+    $str = $_SERVER['SERVER_NAME'];
+    return $str;
   }
 
   public function cbmContent()
