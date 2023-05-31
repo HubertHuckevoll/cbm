@@ -9,8 +9,16 @@ trait cbmToolsVF
    */
   public function renderBaseTag(): string
   {
-    $href = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    $href = substr($href, 0, strrpos($href, 'index.php'));
+    $href = dirname($_SERVER['PHP_SELF']);
+
+    $hasIndexPhp = strpos($href, 'index.php');
+    if ($hasIndexPhp)
+    {
+      $href = substr($href, 0, $hasIndexPhp);
+    }
+
+    $href = rtrim($href, '/\\');
+    $href = $href.'/';
 
     return '<base href="'.$href.'">';
   }
