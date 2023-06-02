@@ -12,12 +12,12 @@ class indexC extends cbmPageC
    * _________________________________________________________________
    */
 
-  public function __construct(string $store, array $request)
+  public function __construct(string $store, array $request, ?array $prefs = null)
   {
     $this->requestedPage = ($request['page']) ?? 0;
 
     $pv = new indexV('indexV');
-    parent::__construct($pv, $store);
+    parent::__construct($pv, $store, $prefs);
   }
 
   /**

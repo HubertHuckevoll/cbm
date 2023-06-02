@@ -6,6 +6,7 @@ trait cbmIndexVF
   /**
    * Summary of renderIndex
    * @return string
+   * ________________________________________________________________
    */
   public function renderIndex(): string
   {
@@ -28,6 +29,7 @@ trait cbmIndexVF
   /**
    * Summary of renderIndexWithTeaser
    * @return string
+   * ________________________________________________________________
    */
   public function renderIndexWithTeaser(): string
   {
@@ -70,7 +72,7 @@ trait cbmIndexVF
       }
       else
       {
-        $html .= '<a href="index.php/indexC/show?page='.$i.'"><button>'.($i+1).'</button></a>&nbsp;';
+        $html .= '<a href="index.php/indexC/show?page='.$i.'"><span>'.($i+1).'</span></a>&nbsp;';
       }
     }
 

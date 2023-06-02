@@ -10,12 +10,12 @@ class articleC extends cbmPageC
    * Konstruktor
    * _________________________________________________________________
    */
-  public function __construct(string $store, array $request)
+  public function __construct(string $store, array $request, ?array $prefs = null)
   {
     $pv = new articleV('articleV');
-    parent::__construct($pv, $store);
+    parent::__construct($pv, $store, $prefs);
 
-    if (!isset($request['articleName'])) redirect();
+    if (!isset($request['articleName'])) throw new Exception();
     $this->articleName = $request['articleName'];
   }
 
