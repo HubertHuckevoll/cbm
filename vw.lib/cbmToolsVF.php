@@ -6,6 +6,7 @@ trait cbmToolsVF
   /**
    * Summary of renderBaseTag
    * @return string
+   * ________________________________________________________________
    */
   public function renderBaseTag(): string
   {
@@ -27,13 +28,17 @@ trait cbmToolsVF
    * Summary of renderDate
    * @param mixed $timestamp
    * @return bool|string
+   * ________________________________________________________________
    */
   public function renderDate(int $timestamp): bool|string
   {
     $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
     $formatter = new \IntlDateFormatter($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE);
 
-    return $formatter->format($timestamp);
+    $html = $formatter->format($timestamp);
+    $html = ($html !== false) ? $html : '-';
+
+    return $html;
   }
 
 }

@@ -4,7 +4,7 @@ class articleC extends cbmPageC
 {
   protected string $articleBox = 'entries';
   protected string $articleName = '';
-  public int $articlesPerPage = 2; // make sure this is equal in indexC!
+  public ?int $articlesPerPage = null; // make sure this is equal in indexC!
 
   /**
    * Konstruktor
@@ -14,6 +14,8 @@ class articleC extends cbmPageC
   {
     $pv = new articleV('articleV');
     parent::__construct($pv, $store, $prefs);
+
+    $this->articlesPerPage = $prefs['articlesPerPage'] ?? 10;
 
     if (!isset($request['articleName'])) throw new Exception();
     $this->articleName = $request['articleName'];

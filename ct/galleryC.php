@@ -33,8 +33,6 @@ class galleryC extends cbmPageC
     $prevIdx = isset($data['images'][$this->imgIdx - 1]) ? ($this->imgIdx - 1) : (count($data['images']) - 1);
     $nextIdx = isset($data['images'][$this->imgIdx + 1]) ? ($this->imgIdx + 1) : 0;
 
-    logger::vh($curIdx, $prevIdx, $nextIdx);
-
     $this->view->set('article', $data);
     $this->view->set('gallery', 'curIdx', $curIdx);
     $this->view->set('gallery', 'nextIdx', $nextIdx);

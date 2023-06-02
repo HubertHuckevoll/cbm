@@ -5,7 +5,7 @@ class indexC extends cbmPageC
 
   protected string $articleBox = 'entries';
   protected mixed $requestedPage = null;
-  public int $articlesPerPage = 2; // make sure this is equal in articleC!
+  public ?int $articlesPerPage = null;
 
   /**
    * Konstruktor
@@ -15,6 +15,8 @@ class indexC extends cbmPageC
   public function __construct(string $store, array $request, ?array $prefs = null)
   {
     $this->requestedPage = ($request['page']) ?? 0;
+
+    $this->articlesPerPage = $prefs['articlesPerPage'] ?? 10;
 
     $pv = new indexV('indexV');
     parent::__construct($pv, $store, $prefs);
