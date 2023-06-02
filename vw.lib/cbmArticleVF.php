@@ -6,6 +6,7 @@ trait cbmArticleVF
   /**
    * Summary of renderMetadata
    * @return string
+   * ________________________________________________________________
    */
   public function renderMetadata(): string
   {
@@ -43,6 +44,7 @@ trait cbmArticleVF
   /**
    * Summary of renderImageList
    * @return string
+   * ________________________________________________________________
    */
   public function renderImageList(): string
   {
@@ -67,6 +69,7 @@ trait cbmArticleVF
   /**
    * Summary of renderGallery
    * @return string
+   * ________________________________________________________________
    */
   public function renderGallery(): string
   {
@@ -84,14 +87,14 @@ trait cbmArticleVF
     $erg = '<div>'.
             '<div>'.
               '<p>'.
-                '<a href="'.$prev.'" title="Voriges Bild"><button>&laquo;</button></a>&nbsp;'.
-                '<a href="'.$next.'" title="Nächstes Bild"><button>&raquo;</button></a>&nbsp;'.
-                '<a href="index.php/articleC/show/'.$articleName.'" title="Zur&uuml;ck"><button>x</button></a>'.
+                '<a href="'.$prev.'" title="Voriges Bild"><span>&laquo;</span></a>&nbsp;'.
+                '<a href="'.$next.'" title="Nächstes Bild"><span>&raquo;</span></a>&nbsp;'.
+                '<a href="index.php/articleC/show/'.$articleName.'" title="Zur&uuml;ck"><span>x</span></a>'.
               '</p>'.
             '</div>'.
             '<div>'.
               '<a href="'.$next.'">'.
-                 '<img alt="'.$curDesc.'" title="'.$curDesc.'" src="'.$cur.'" style="cursor: pointer; border: none;" />'.
+                 '<img alt="'.$curDesc.'" title="'.$curDesc.'" src="'.$cur.'">'.
               '</a>'.
               '<p><em>'.$curDesc.'</em></p>'.
             '</div>'.
