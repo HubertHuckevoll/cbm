@@ -1,6 +1,6 @@
 <?php
 
-trait cbmToolsVF
+trait cbmToolsV
 {
 
   /**

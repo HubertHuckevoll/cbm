@@ -11,7 +11,8 @@
                 <h1><cbm-header></h1>
             </header>
             <main>
-                <cbm-content>
+                <section><cbm-content></section>
+                <section><cbm-pages></section>
             </main>
         </body>
     </html>

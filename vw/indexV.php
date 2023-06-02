@@ -25,9 +25,43 @@ class indexV extends cbmPageV
   public function cbmContent()
   {
     $html  = '';
-    $html .= $this->renderIndexWithTeaser();
+    $articles = $this->get('articles');
+
+    if ($articles !== null)
+    {
+      $html .= '<ul>';
+      foreach($articles as $item)
+      {
+        $html .= '<li>'.
+                   '<a href="index.php/articleC/show/'.$item['articleName'].'">'.$item['title'].'</a>'.
+                   '<p>'.$item['summary'].'</p>'.
+                 '</li>';
+      }
+      $html .= '</ul>';
+    }
+
+    return $html;
+  }
+
+  public function cbmPages()
+  {
+    $html  = '';
     $html .= '<hr>';
-    $html .= $this->renderArticleBoxPageNumbers();
+
+    $page = $this->get('index', 'page');
+    $maxPage = $this->get('index', 'maxPage');
+
+    for ($i = 0; $i < $maxPage; $i++)
+    {
+      if ($i == $page)
+      {
+        $html .= '<span>'.($i+1).'</span>&nbsp;';
+      }
+      else
+      {
+        $html .= '<a href="index.php/indexC/show?page='.$i.'"><span>'.($i+1).'</span></a>&nbsp;';
+      }
+    }
 
     return $html;
   }

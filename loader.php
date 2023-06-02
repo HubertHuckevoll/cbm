@@ -21,17 +21,13 @@ spl_autoload_register(function($className)
         $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw/'.$className.'.php';
         if (!file_exists($fname))
         {
-          $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw.lib/'.$className.'.php';
+          $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/lb/vw/'.$className.'.php';
         }
       }
     break;
 
-    case 'F':
-      $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw.lib/'.$className.'.php';
-    break;
-
     case 'M':
-      $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/md/'.$className.'.php';
+      $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/lb/md/'.$className.'.php';
     break;
 
     case 'C':
@@ -41,7 +37,7 @@ spl_autoload_register(function($className)
         $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/ct/'.$className.'.php';
         if (!file_exists($fname))
         {
-          $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/ct.lib/'.$className.'.php';
+          $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/lb/ct/'.$className.'.php';
         }
       }
     break;
