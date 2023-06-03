@@ -61,12 +61,13 @@ class cbmAppC
       }
       else
       {
-        $this->redirect();
+        throw new Exception('Unknown message.');
       }
     }
     catch (Throwable $e)
     {
-      $this->redirect();
+      die($e->getMessage());
+      //FIXME: $this->redirect();
     }
   }
 

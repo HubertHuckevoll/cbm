@@ -27,7 +27,11 @@ spl_autoload_register(function($className)
     break;
 
     case 'M':
-      $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/lb/md/'.$className.'.php';
+      $fname = dirname($_SERVER['SCRIPT_FILENAME']).'/md/'.$className.'.php';
+      if (!file_exists($fname))
+      {
+        $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/lb/md/'.$className.'.php';
+      }
     break;
 
     case 'C':
