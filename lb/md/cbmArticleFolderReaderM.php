@@ -63,11 +63,11 @@ class cbmArticleFolderReaderM
    * @return array
    * ________________________________________________________________
    */
-  public function get(?string $tags = null): array
+  public function get(string $tags = ''): array
   {
     $result = [];
 
-    if (($tags === null) || ($tags == '')) return $this->entries;
+    if ($tags == '') return $this->entries;
 
     $tags = array_map('trim', explode(',', $tags));
 

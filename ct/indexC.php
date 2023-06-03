@@ -5,7 +5,7 @@ class indexC extends cbmPageC
   protected string $articleBox = 'entries';
   protected mixed $requestedPage = null;
   public ?int $articlesPerPage = null;
-  protected ?string $tags = null;
+  protected string $tags = '';
 
   /**
    * Konstruktor

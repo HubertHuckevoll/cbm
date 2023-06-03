@@ -5,7 +5,7 @@ class articleC extends cbmPageC
   protected string $articleBox = 'entries';
   protected string $articleName = '';
   public ?int $articlesPerPage = null;
-  protected ?string $tags = '';
+  protected string $tags = '';
 
   /**
    * Konstruktor
