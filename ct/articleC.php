@@ -46,7 +46,8 @@ class articleC extends cbmPageC
   protected function getBoxPageForArticle(): int
   {
     $fr = new cbmArticleFolderReaderM($this->store, $this->articleBox);
-    $names = $fr->get();
+    $fr->read();
+    $names = $fr->get($this->tags);
     $names = array_column($names, 'articleName');
     $idx = array_search($this->articleName, $names);
     $page = ceil($idx / $this->articlesPerPage);

@@ -32,8 +32,9 @@ class indexV extends cbmPageV
       $html .= '<ul>';
       foreach($articles as $item)
       {
+        $tags = ($this->get('index', 'tags') != '') ? '?tags='.$this->get('index', 'tags') : '';
         $html .= '<li>'.
-                   '<a href="index.php/articleC/show/'.$item['articleName'].'?tags='.$this->get('index', 'tags').'">'.$item['title'].'</a>'.
+                   '<a href="index.php/articleC/show/'.$item['articleName'].$tags.'">'.$item['title'].'</a>'.
                    '<p>'.$item['summary'].'</p>'.
                  '</li>';
       }

@@ -84,8 +84,8 @@ class articleV extends cbmPageV
   public function cbmFooter()
   {
     $page = $this->get('index', 'articleBoxPage');
-    $tags = $this->get('index', 'tags');
-    return '<a href="index.php/indexC/show?page='.$page.'&tags='.$tags.'">Zurück</a>';
+    $tags = ($this->get('index', 'tags') !== '') ? '&tags='.$this->get('index', 'tags') : '';
+    return '<a href="index.php/indexC/show?page='.$page.$tags.'">Zurück</a>';
   }
 }
 
