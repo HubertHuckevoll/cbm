@@ -5,6 +5,7 @@ class indexC extends cbmPageC
   protected string $articleBox = 'entries';
   protected mixed $requestedPage = null;
   public ?int $articlesPerPage = null;
+  protected ?string $tags = null;
 
   /**
    * Konstruktor
@@ -14,6 +15,7 @@ class indexC extends cbmPageC
   public function __construct(string $store, array $request, ?array $prefs = null)
   {
     $this->requestedPage = ($request['page']) ?? 0;
+    $this->tags = ($request['tags']) ?? '';
 
     $this->articlesPerPage = $prefs['articlesPerPage'] ?? 10;
 
@@ -34,7 +36,7 @@ class indexC extends cbmPageC
 
     $fr = new cbmArticleFolderReaderM($this->store, $this->articleBox);
     $fr->read();
-    $entries = $fr->get();
+    $entries = $fr->get($this->tags);
 
     $maxPage = ceil(count($entries) / $this->articlesPerPage);
     $page = ($this->requestedPage < $maxPage) ? $this->requestedPage : 0;
@@ -45,6 +47,7 @@ class indexC extends cbmPageC
 
     $this->view->set('index', 'maxPage', $maxPage);
     $this->view->set('index', 'page', $page);
+    $this->view->set('index', 'tags', $this->tags);
     $this->view->set('articles', $data);
 
     $this->view->draw();

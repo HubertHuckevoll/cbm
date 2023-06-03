@@ -4,7 +4,8 @@ class articleC extends cbmPageC
 {
   protected string $articleBox = 'entries';
   protected string $articleName = '';
-  public ?int $articlesPerPage = null; // make sure this is equal in indexC!
+  public ?int $articlesPerPage = null;
+  protected ?string $tags = '';
 
   /**
    * Konstruktor
@@ -16,6 +17,7 @@ class articleC extends cbmPageC
     parent::__construct($pv, $store, $prefs);
 
     $this->articlesPerPage = $prefs['articlesPerPage'] ?? 10;
+    $this->tags = $request['tags'] ?? '';
 
     if (!isset($request['articleName'])) throw new Exception();
     $this->articleName = $request['articleName'];
@@ -31,6 +33,7 @@ class articleC extends cbmPageC
     $data = $ar->get();
     $this->view->set('article', $data);
     $this->view->set('index', 'articleBoxPage', $this->getBoxPageForArticle());
+    $this->view->set('index', 'tags', $this->tags);
 
     $this->view->draw();
   }
