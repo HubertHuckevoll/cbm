@@ -66,7 +66,7 @@ class cbmAppC
     }
     catch (Throwable $e)
     {
-      die($e->getMessage());
+      //die($e->getMessage());
       //FIXME: $this->redirect();
     }
   }

@@ -2,7 +2,6 @@
 
 class indexC extends cbmPageC
 {
-
   protected string $articleBox = 'entries';
   protected mixed $requestedPage = null;
   public ?int $articlesPerPage = null;
@@ -29,26 +28,24 @@ class indexC extends cbmPageC
   public function show(): void
   {
     $page = 0;
-    $names = [];
+    $entries = [];
     $fr = null;
     $maxPage = null;
 
     $fr = new cbmArticleFolderReaderM($this->store, $this->articleBox);
-    $names = $fr->get();
+    $entries = $fr->get();
 
-    logger::vh($names);
-
-
-    $maxPage = ceil(count($names) / $this->articlesPerPage);
+    $maxPage = ceil(count($entries) / $this->articlesPerPage);
     $page = ($this->requestedPage < $maxPage) ? $this->requestedPage : 0;
     if ($page < 0) $page = 0;
 
-    $af = new cbmArticleFactoryM($this->store, $this->articleBox);
+    $af = new cbmArticleFactoryM($entries);
     $data = $af->get(($page * $this->articlesPerPage), $this->articlesPerPage);
 
     $this->view->set('index', 'maxPage', $maxPage);
     $this->view->set('index', 'page', $page);
     $this->view->set('articles', $data);
+
     $this->view->draw();
   }
 

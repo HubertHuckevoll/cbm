@@ -2,20 +2,16 @@
 
 class cbmArticleFactoryM
 {
-  protected string $store = '';
-  protected string $articleBox = '';
-
   protected array $indexData = [];
 
   /**
    * Summary of __construct
-   * @param mixed $store
-   * @param mixed $articleBox
+   * $indexData
+   * ________________________________________________________________
    */
-  public function __construct($store, $articleBox)
+  public function __construct(array $indexData)
   {
-    $this->store = $store;
-    $this->articleBox = $articleBox;
+    $this->indexData = $indexData;
   }
 
   /**
@@ -23,20 +19,19 @@ class cbmArticleFactoryM
    * @param mixed $startIdx
    * @param mixed $num
    * @return array
+   * ________________________________________________________________
    */
   public function get(int $startIdx, int $num): array
   {
-    $box = new cbmArticleFolderReaderM($this->store, $this->articleBox);
-    $indexData = $box->get();
     $data = [];
     $result = [];
     $i = 0;
 
     for ($i = $startIdx; $i < ($startIdx+$num); $i++)
     {
-      if (!isset($indexData[$i])) break;
+      if (!isset($this->indexData[$i])) break;
       $data = [];
-      $a = new cbmArticleM($this->store, $this->articleBox, $indexData[$i]['articleName']);
+      $a = new cbmArticleM($this->indexData[$i]['store'], $this->indexData[$i]['articleBox'], $this->indexData[$i]['articleName']);
       $data = $a->get();
 
       array_push($result, $data);

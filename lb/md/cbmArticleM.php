@@ -7,6 +7,13 @@ class cbmArticleM
   protected string $articleName = '';
   protected string $articleFile = '';
 
+  /**
+   * Summary of __construct
+   * @param mixed $store
+   * @param mixed $articleBox
+   * @param mixed $articleName
+   * ________________________________________________________________
+   */
   public function __construct(string $store, string $articleBox, string $articleName)
   {
     $this->store = $store;
@@ -15,6 +22,11 @@ class cbmArticleM
     $this->articleFile = $_SERVER['DOCUMENT_ROOT'].'/'.$this->store.'/'.$this->articleBox.'/'.$this->articleName.'.htmlf';
   }
 
+  /**
+   * Summary of get
+   * @return array
+   * ________________________________________________________________
+   */
   public function get(): array
   {
     $result = [];
@@ -29,6 +41,7 @@ class cbmArticleM
       $val = $this->exec($tag, $val);
     }
 
+    $result['store'] = $this->store;
     $result['articleBox'] = $this->articleBox;
     $result['articleName'] = $this->articleName;
     $result['date'] = $this->extractDateFromArticleName();
@@ -40,6 +53,7 @@ class cbmArticleM
    * Summary of readFile
    * @throws \Exception
    * @return bool|string
+   * ________________________________________________________________
    */
   public function readFile(): string
   {
@@ -57,6 +71,7 @@ class cbmArticleM
   /**
    * Summary of extractDateFromArticleName
    * @return bool|int
+   * ________________________________________________________________
    */
   protected function extractDateFromArticleName(): int
   {
@@ -85,6 +100,7 @@ class cbmArticleM
    * Summary of images
    * @param mixed $tagVal
    * @return array
+   * ________________________________________________________________
    */
   protected function images(string $tagVal): array
   {
