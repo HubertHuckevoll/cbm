@@ -5,6 +5,7 @@ class cbmArticleFolderReaderM
   protected string $store = '';
   protected string $articleBox = '';
   protected array $allTags = [];
+  protected array $entries = [];
 
   /**
    * Konstruktor
@@ -20,7 +21,7 @@ class cbmArticleFolderReaderM
    * fetch Articles and sort them in descending order by date
    * _________________________________________________________________
    */
-  public function get(): array
+  public function read(): void
   {
     $items = [];
     $data = [];
@@ -48,12 +49,35 @@ class cbmArticleFolderReaderM
         array_multisort($sortKeyArr, SORT_DESC, $result);
       }
 
-      return $result;
+      $this->entries = $result;
     }
     catch (Throwable $e)
     {
       throw new Exception('Couldn\'t read contens of folder "'.$folder.'"');
     }
+  }
+
+  /**
+   * Summary of get
+   * @param mixed $tags
+   * @return array
+   * ________________________________________________________________
+   */
+  public function get(?array $tags = null): array
+  {
+    $result = [];
+
+    if ($tags === null) return $this->entries;
+
+    for($i=0; $i < count($this->entries); $i++)
+    {
+      if (count(array_intersect($tags, $this->entries[$i]['tags'])) > 0)
+      {
+        array_push($result, $this->entries[$i]);
+      }
+    }
+
+    return $result;
   }
 
   /**
@@ -94,9 +118,9 @@ class cbmArticleFolderReaderM
       $data['articleBox'] = $this->articleBox;
       $data['articleName'] = strtolower($matches[1]);
       $data['date'] = strtotime($matches[2].'T00:00:00');
-      $data['tags'] = ($matches[3] != '') ? array_map('trim', explode(',', $matches[3])) : null;
+      $data['tags'] = ($matches[3] != '') ? array_map('trim', explode(',', $matches[3])) : [];
 
-      $this->allTags = array_merge($this->allTags, $data['tags'] ?? []);
+      $this->allTags = array_merge($this->allTags, $data['tags']);
       $this->allTags = array_filter($this->allTags);
       $this->allTags = array_unique($this->allTags);
 
