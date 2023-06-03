@@ -43,6 +43,7 @@ class indexC extends cbmPageC
     if ($page < 0) $page = 0;
 
     $af = new cbmArticleFactoryM($entries);
+
     $data = $af->get(($page * $this->articlesPerPage), $this->articlesPerPage);
 
     $this->view->set('index', 'maxPage', $maxPage);

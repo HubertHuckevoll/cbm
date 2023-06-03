@@ -6,7 +6,7 @@ class cbmArticleFactoryM
 
   /**
    * Summary of __construct
-   * $indexData
+   * @param array $indexData
    * ________________________________________________________________
    */
   public function __construct(array $indexData)
@@ -16,8 +16,8 @@ class cbmArticleFactoryM
 
   /**
    * Summary of get
-   * @param mixed $startIdx
-   * @param mixed $num
+   * @param int $startIdx
+   * @param int $num
    * @return array
    * ________________________________________________________________
    */
