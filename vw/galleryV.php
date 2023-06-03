@@ -19,23 +19,26 @@ class galleryV extends cbmPageV
 
   public function cbmContent()
   {
-    $curIdx = $this->get('gallery', 'curIdx');
+    $tags = ($this->get('index', 'tags') !== '') ? '&tags='.$this->get('index', 'tags') : '';
+
+    $curIdx  = $this->get('gallery', 'curIdx');
     $nextIdx = $this->get('gallery', 'nextIdx');
     $prevIdx = $this->get('gallery', 'prevIdx');
 
-    $cur     = $this->get('article', 'images')[$curIdx]['src'];
-    $curDesc = $this->get('article', 'images')[$curIdx]['title'];
+    $cur         = $this->get('article', 'images')[$curIdx]['src'];
+    $curDesc     = $this->get('article', 'images')[$curIdx]['title'];
     $articleName = $this->get('article', 'articleName');
 
-    $prev = 'index.php/galleryC/show/'.$articleName.'?imgIdx='.$prevIdx;
-    $next = 'index.php/galleryC/show/'.$articleName.'?imgIdx='.$nextIdx;
+    $prev = 'index.php/galleryC/show/'.$articleName.'?imgIdx='.$prevIdx.$tags;
+    $next = 'index.php/galleryC/show/'.$articleName.'?imgIdx='.$nextIdx.$tags;
+    $back = 'index.php/articleC/show/'.$articleName.'?'.$tags;
 
     $erg = '<div>'.
             '<div>'.
               '<p>'.
                 '<a href="'.$prev.'" title="Voriges Bild"><span>&laquo;</span></a>&nbsp;'.
                 '<a href="'.$next.'" title="Nächstes Bild"><span>&raquo;</span></a>&nbsp;'.
-                '<a href="index.php/articleC/show/'.$articleName.'" title="Zur&uuml;ck"><span>x</span></a>'.
+                '<a href="'.$back.'" title="Zur&uuml;ck"><span>x</span></a>'.
               '</p>'.
             '</div>'.
             '<div>'.

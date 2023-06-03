@@ -5,6 +5,7 @@ class galleryC extends cbmPageC
   protected string $articleBox = 'entries';
   protected string $articleName = '';
   protected ?int $imgIdx = null;
+  protected string $tags = '';
 
   /**
    * Konstruktor
@@ -18,6 +19,7 @@ class galleryC extends cbmPageC
     if (!isset($request['articleName'])) throw new Exception('articleName not set.');
     $this->articleName = $request['articleName'];
     $this->imgIdx = $request['imgIdx'] ?? 0;
+    $this->tags = $request['tags'] ?? '';
   }
 
   /**
@@ -33,6 +35,7 @@ class galleryC extends cbmPageC
     $prevIdx = isset($data['images'][$this->imgIdx - 1]) ? ($this->imgIdx - 1) : (count($data['images']) - 1);
     $nextIdx = isset($data['images'][$this->imgIdx + 1]) ? ($this->imgIdx + 1) : 0;
 
+    $this->view->set('index', 'tags', $this->tags);
     $this->view->set('article', $data);
     $this->view->set('gallery', 'curIdx', $curIdx);
     $this->view->set('gallery', 'nextIdx', $nextIdx);

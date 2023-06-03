@@ -66,13 +66,14 @@ class articleV extends cbmPageV
     $html  = '';
     $imgs = $this->get('article', 'images');
     $name = $this->get('article', 'articleName');
+    $tags = ($this->get('index', 'tags') !== '') ? '&tags='.$this->get('index', 'tags') : '';
 
     if ($imgs !== null)
     {
       for($i=0; $i < count($imgs); $i++)
       {
         $img = $imgs[$i];
-        $html .= '<a href="index.php/galleryC/show/'.$name.'?imgIdx='.$i.'">'.
+        $html .= '<a href="index.php/galleryC/show/'.$name.'?imgIdx='.$i.$tags.'">'.
                     '<img height="250" src="'.$img['src'].'" title="'.$img['title'].'" alt="'.$img['title'].'">'.
                  '</a>&nbsp;';
       }

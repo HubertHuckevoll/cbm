@@ -17,10 +17,10 @@ class articleC extends cbmPageC
     parent::__construct($pv, $store, $prefs);
 
     $this->articlesPerPage = $prefs['articlesPerPage'] ?? 10;
-    $this->tags = $request['tags'] ?? '';
 
     if (!isset($request['articleName'])) throw new Exception('articleName not set.');
     $this->articleName = $request['articleName'];
+    $this->tags = $request['tags'] ?? '';
   }
 
   /**
