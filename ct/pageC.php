@@ -14,7 +14,7 @@ class pageC extends cbmPageC
     $pv = new articleV('pageV');
     parent::__construct($pv, $store, $prefs);
 
-    if (!isset($request['articleName'])) throw new Exception();
+    if (!isset($request['articleName'])) throw new Exception('articleName not set.');
     $this->articleName = $request['articleName'];
   }
 

@@ -19,7 +19,7 @@ class articleC extends cbmPageC
     $this->articlesPerPage = $prefs['articlesPerPage'] ?? 10;
     $this->tags = $request['tags'] ?? '';
 
-    if (!isset($request['articleName'])) throw new Exception();
+    if (!isset($request['articleName'])) throw new Exception('articleName not set.');
     $this->articleName = $request['articleName'];
   }
 
