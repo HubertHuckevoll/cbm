@@ -76,8 +76,6 @@ class cbmRequestM
       }
     }
 
-    logger::vh($keyVal);
-
     return $keyVal;
   }
 
