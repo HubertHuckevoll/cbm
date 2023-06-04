@@ -29,9 +29,9 @@ class galleryV extends cbmPageV
     $curDesc     = $this->get('article', 'images')[$curIdx]['title'];
     $articleName = $this->get('article', 'articleName');
 
-    $prev = 'index.php/galleryC/show/'.$articleName.'?imgIdx='.$prevIdx.$tags;
-    $next = 'index.php/galleryC/show/'.$articleName.'?imgIdx='.$nextIdx.$tags;
-    $back = 'index.php/articleC/show/'.$articleName.'?'.$tags;
+    $prev = $this->renderHrefGallery($articleName, $prevIdx);
+    $next = $this->renderHrefGallery($articleName, $nextIdx);
+    $back = $this->renderHrefArticle($articleName);
 
     $erg = '<div>'.
             '<div>'.

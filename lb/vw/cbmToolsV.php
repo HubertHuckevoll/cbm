@@ -79,6 +79,37 @@ trait cbmToolsV
     return $str;
   }
 
+  protected function renderHrefIndex(?int $page): string
+  {
+    $tags = ($this->get('index', 'tags') !== '') ? '/['.$this->get('index', 'tags').']' : '';
+    $str = 'index.php/indexC/show'.$tags.'?page='.$page;
+
+    return $str;
+  }
+
+  protected function renderHrefArticle(string $articleName): string
+  {
+    $tags = ($this->get('index', 'tags') !== '') ? '/['.$this->get('index', 'tags').']/' : '/';
+    $str  = 'index.php/articleC/show'.$tags.$articleName;
+
+    return $str;
+  }
+
+  protected function renderHrefGallery(string $articleName, int $idx): string
+  {
+    $tags = ($this->get('index', 'tags') !== '') ? '/['.$this->get('index', 'tags').']/' : '/';
+    $str  = 'index.php/galleryC/show'.$tags.$articleName.'?imgIdx='.$idx;
+
+    return $str;
+  }
+
+  protected function renderHrefPage(string $articleName): string
+  {
+    $str = 'index.php/pageC/show/'.$articleName;
+
+    return $str;
+  }
+
 }
 
 ?>

@@ -32,9 +32,8 @@ class indexV extends cbmPageV
       $html .= '<ul>';
       foreach($articles as $item)
       {
-        $tags = ($this->get('index', 'tags') != '') ? '?tags='.$this->get('index', 'tags') : '';
         $html .= '<li>'.
-                   '<a href="index.php/articleC/show/'.$item['articleName'].$tags.'">'.$item['title'].'</a>'.
+                   '<a href="'.$this->renderHrefArticle($item['articleName']).'">'.$item['title'].'</a>'.
                    '<p>'.$item['summary'].'</p>'.
                  '</li>';
       }
@@ -51,7 +50,6 @@ class indexV extends cbmPageV
 
     $page = $this->get('index', 'page');
     $maxPage = $this->get('index', 'maxPage');
-    $tags = ($this->get('index', 'tags') != '') ? '&tags='.$this->get('index', 'tags') : '';
 
     for ($i = 0; $i < $maxPage; $i++)
     {
@@ -62,7 +60,7 @@ class indexV extends cbmPageV
       else
       {
 
-        $html .= '<a href="index.php/indexC/show?page='.$i.$tags.'"><span>'.($i+1).'</span></a>&nbsp;';
+        $html .= '<a href="'.$this->renderHrefIndex($i).'"><span>'.($i+1).'</span></a>&nbsp;';
       }
     }
 

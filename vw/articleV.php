@@ -38,14 +38,13 @@ class articleV extends cbmPageV
     $html  = '';
     $imgs = $this->get('article', 'images');
     $name = $this->get('article', 'articleName');
-    $tags = ($this->get('index', 'tags') !== '') ? '&tags='.$this->get('index', 'tags') : '';
 
     if ($imgs !== null)
     {
       for($i=0; $i < count($imgs); $i++)
       {
         $img = $imgs[$i];
-        $html .= '<a href="index.php/galleryC/show/'.$name.'?imgIdx='.$i.$tags.'">'.
+        $html .= '<a href="'.$this->renderHrefGallery($name, $i).'">'.
                     '<img height="250" src="'.$img['src'].'" title="'.$img['title'].'" alt="'.$img['title'].'">'.
                  '</a>&nbsp;';
       }
@@ -57,8 +56,7 @@ class articleV extends cbmPageV
   public function cbmFooter()
   {
     $page = $this->get('index', 'articleBoxPage');
-    $tags = ($this->get('index', 'tags') !== '') ? '&tags='.$this->get('index', 'tags') : '';
-    return '<a href="index.php/indexC/show?page='.$page.$tags.'">Zurück</a>';
+    return '<a href="'.$this->renderHrefIndex($page).'">Zurück</a>';
   }
 }
 

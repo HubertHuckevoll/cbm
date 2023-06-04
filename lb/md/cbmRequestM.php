@@ -57,10 +57,26 @@ class cbmRequestM
         case 3:
           $keyVal['mod'] = $segments[0];
           $keyVal['hook'] = $segments[1];
-          $keyVal['articleName'] = $segments[2];
+          if (substr($segments[2], 0, 1) == '[')
+          {
+            $keyVal['tags'] = substr($segments[2], 1, -1);
+          }
+          else
+          {
+            $keyVal['articleName'] = $segments[2];
+          }
+        break;
+
+        case 4:
+          $keyVal['mod'] = $segments[0];
+          $keyVal['hook'] = $segments[1];
+          $keyVal['tags'] = substr($segments[2], 1, -1);
+          $keyVal['articleName'] = $segments[3];
         break;
       }
     }
+
+    logger::vh($keyVal);
 
     return $keyVal;
   }
