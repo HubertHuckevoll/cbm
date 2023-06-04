@@ -30,15 +30,16 @@ class cbmArticleM
   public function get(): array
   {
     $result = [];
-    $fileContent = $this->readFile();
     $re = '/<cbm-(.*)>(.*)<\/cbm-\1>/iuUs';
+
+    $fileContent = $this->readFile();
+    $fileContent = $this->reworkURLs($fileContent);
 
     preg_match_all($re, $fileContent, $result, PREG_SET_ORDER, 0);
     $result = array_column($result, 2, 1);
 
     foreach($result as $tag => &$val)
     {
-      $val = $this->reworkURLs($val);
       $val = $this->exec($tag, $val);
     }
 
@@ -103,11 +104,26 @@ class cbmArticleM
    * @return array|string|null
    * ________________________________________________________________
    */
-  protected function reworkURLs(string $html): string
+  protected function reworkURLs(string $html): array|string|null
   {
+    // rework image urls
     $pattern = '/src="([^\/]*)"/mU';
     $replacement = 'src="/'.$this->store.'/'.$this->articleBox.'.assets/'.'$1"';
     $html = preg_replace($pattern, $replacement, $html);
+
+    // rework hrefs with download attribute
+    $pattern = '/<a.*href="(.*)".*>/mU';
+    $links = [];
+    if (preg_match_all($pattern, $html, $links, PREG_SET_ORDER, 0) > 0)
+    {
+      foreach ($links as $link)
+      {
+        if (strpos(strtolower($link[0]), 'download') !== false)
+        {
+          $html = str_replace('href="'.$link[1].'"', 'href="'.'/'.$this->store.'/'.$this->articleBox.'.assets/'.$link[1].'"', $html);
+        }
+      }
+    }
 
     return $html;
   }
