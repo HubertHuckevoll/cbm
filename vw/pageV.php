@@ -1,6 +1,6 @@
 <?php
 
-class articleV extends cbmPageV
+class pageV extends cbmPageV
 {
   public function cbmBase()
   {

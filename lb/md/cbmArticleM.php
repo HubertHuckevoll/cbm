@@ -38,6 +38,7 @@ class cbmArticleM
 
     foreach($result as $tag => &$val)
     {
+      $val = $this->reworkURLs($val);
       $val = $this->exec($tag, $val);
     }
 
@@ -97,6 +98,21 @@ class cbmArticleM
   }
 
   /**
+   * Summary of reworkURLs
+   * @param mixed $html
+   * @return array|string|null
+   * ________________________________________________________________
+   */
+  protected function reworkURLs(string $html): string
+  {
+    $pattern = '/src="([^\/]*)"/mU';
+    $replacement = 'src="/'.$this->store.'/'.$this->articleBox.'.assets/'.'$1"';
+    $html = preg_replace($pattern, $replacement, $html);
+
+    return $html;
+  }
+
+  /**
    * Summary of images
    * @param mixed $tagVal
    * @return array
@@ -124,7 +140,7 @@ class cbmArticleM
           {
             if ($rawImgData[0][1] != '')
             {
-              $finalImgData['src'] = '/'.$this->store.'/'.$this->articleBox.'.assets/'.$rawImgData[0][1];
+              $finalImgData['src'] = $rawImgData[0][1];
 
               $re = '/<img.*title="(.*)".*>/mU';
               if (preg_match_all($re, $img, $rawImgData, PREG_SET_ORDER, 0) > 0)

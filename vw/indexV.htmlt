@@ -9,6 +9,7 @@
         <body>
             <header>
                 <h1><cbm-header></h1>
+                <a href="index.php/pageC/show/about">About</a>
             </header>
             <main>
                 <section><cbm-content></section>

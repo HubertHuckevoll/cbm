@@ -11,7 +11,7 @@ class pageC extends cbmPageC
    */
   public function __construct(string $store, array $request, ?array $prefs = null)
   {
-    $pv = new articleV('pageV');
+    $pv = new pageV('pageV');
     parent::__construct($pv, $store, $prefs);
 
     if (!isset($request['articleName'])) throw new Exception('articleName not set.');
