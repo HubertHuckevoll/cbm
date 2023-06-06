@@ -49,8 +49,9 @@ trait cbmToolsV
   protected function renderArticleMetadata(): string
   {
     $str = '';
-    $url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     $image0 = $this->get('article', 'images')[0]['src'] ?? null;
+    $image0 = ($image0 !== null) ? $_SERVER['HTTP_HOST'].$image0 : null;
     $summary = $this->get('article', 'summary') ?? '';
     $author = $this->get('article', 'author') ?? $_SERVER['SERVER_NAME'];
     $title = $this->get('article', 'title') ?? '';

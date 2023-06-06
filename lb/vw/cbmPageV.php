@@ -7,7 +7,7 @@ class cbmPageV
   protected array $data = [];
   protected string $templName = '';
   protected string $htmlTemplate = '';
-  protected string $localViewFolder = '/vw/';
+  protected string $localViewFolder = '/vw/htmlt/';
   protected string $builtInViewFolder = '/cbm/vw/';
 
   /**
@@ -23,10 +23,6 @@ class cbmPageV
   public function getTemplate(): string
   {
     $fname = dirname($_SERVER['SCRIPT_FILENAME']).$this->localViewFolder.$this->templName.'.htmlt';
-    if (!file_exists($fname))
-    {
-      $fname = $_SERVER['DOCUMENT_ROOT'].$this->builtInViewFolder.$this->templName.'.htmlt';
-    }
 
     $fc = file_get_contents($fname);
 

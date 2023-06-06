@@ -15,14 +15,10 @@ spl_autoload_register(function($className)
   switch($ct)
   {
     case 'V':
-      $fname = dirname($_SERVER['SCRIPT_FILENAME']).'/vw/'.$className.'.php';
+      $fname = dirname($_SERVER['SCRIPT_FILENAME']).'/vw/php/'.$className.'.php';
       if (!file_exists($fname))
       {
-        $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw/'.$className.'.php';
-        if (!file_exists($fname))
-        {
-          $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/lb/vw/'.$className.'.php';
-        }
+        $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/lb/vw/'.$className.'.php';
       }
     break;
 
