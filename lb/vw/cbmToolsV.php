@@ -49,9 +49,10 @@ trait cbmToolsV
   protected function renderArticleMetadata(): string
   {
     $str = '';
-    $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    $protocol = ($_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+    $url = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     $image0 = $this->get('article', 'images')[0]['src'] ?? null;
-    $image0 = ($image0 !== null) ? $_SERVER['HTTP_HOST'].$image0 : null;
+    $image0 = ($image0 !== null) ? $protocol.$_SERVER['HTTP_HOST'].$image0 : null;
     $summary = $this->get('article', 'summary') ?? '';
     $author = $this->get('article', 'author') ?? $_SERVER['SERVER_NAME'];
     $title = $this->get('article', 'title') ?? '';
@@ -104,9 +105,9 @@ trait cbmToolsV
     return $str;
   }
 
-  protected function renderHrefPage(string $articleName): string
+  protected function renderHrefPages(string $articleName): string
   {
-    $str = 'index.php/pageC/show/'.$articleName;
+    $str = 'index.php/pagesC/show/'.$articleName;
 
     return $str;
   }
