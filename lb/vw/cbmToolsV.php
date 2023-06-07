@@ -81,6 +81,12 @@ trait cbmToolsV
     return $str;
   }
 
+  /**
+   * Summary of renderHrefIndex
+   * @param mixed $page
+   * @return string
+   * ________________________________________________________________
+   */
   protected function renderHrefIndex(?int $page): string
   {
     $tags = ($this->get('index', 'tags') !== '') ? '/['.$this->get('index', 'tags').']' : '';
@@ -89,6 +95,12 @@ trait cbmToolsV
     return $str;
   }
 
+  /**
+   * Summary of renderHrefArticle
+   * @param mixed $articleName
+   * @return string
+   * ________________________________________________________________
+   */
   protected function renderHrefArticle(string $articleName): string
   {
     $tags = ($this->get('index', 'tags') !== '') ? '/['.$this->get('index', 'tags').']/' : '/';
@@ -97,6 +109,13 @@ trait cbmToolsV
     return $str;
   }
 
+  /**
+   * Summary of renderHrefGallery
+   * @param mixed $articleName
+   * @param mixed $idx
+   * @return string
+   * ________________________________________________________________
+   */
   protected function renderHrefGallery(string $articleName, int $idx): string
   {
     $tags = ($this->get('index', 'tags') !== '') ? '/['.$this->get('index', 'tags').']/' : '/';
@@ -105,6 +124,12 @@ trait cbmToolsV
     return $str;
   }
 
+  /**
+   * Summary of renderHrefPages
+   * @param mixed $articleName
+   * @return string
+   * ________________________________________________________________
+   */
   protected function renderHrefPages(string $articleName): string
   {
     $str = 'index.php/pagesC/show/'.$articleName;
