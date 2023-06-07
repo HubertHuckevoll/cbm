@@ -8,7 +8,7 @@ class cbmPageV
   protected string $templName = '';
   protected string $htmlTemplate = '';
   protected string $localViewFolder = '/vw/htmlt/';
-  protected string $builtInViewFolder = '/cbm/vw/';
+  protected string $builtInViewFolder = '/cbm/vw/htmlt/';
 
   /**
    * Konstruktor
@@ -20,9 +20,19 @@ class cbmPageV
     $this->htmlTemplate = $this->getTemplate();
   }
 
-  public function getTemplate(): string
+  /**
+   * Summary of getTemplate
+   * @throws \Exception
+   * @return bool|string
+   * ________________________________________________________________
+   */
+  public function getTemplate(): bool|string
   {
     $fname = dirname($_SERVER['SCRIPT_FILENAME']).$this->localViewFolder.$this->templName.'.htmlt';
+    if (!file_exists($fname))
+    {
+      $fname = $_SERVER['DOCUMENT_ROOT'].$this->builtInViewFolder.$this->templName.'.htmlt';
+    }
 
     $fc = file_get_contents($fname);
 
