@@ -1,6 +1,6 @@
 <?php
 
-class indexC extends cbmPageC
+class cbmIndexC extends cbmPageC
 {
   protected string $articleBox = 'entries';
   protected mixed $requestedPage = null;

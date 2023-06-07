@@ -18,7 +18,11 @@ spl_autoload_register(function($className)
       $fname = dirname($_SERVER['SCRIPT_FILENAME']).'/vw/php/'.$className.'.php';
       if (!file_exists($fname))
       {
-        $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/lb/vw/'.$className.'.php';
+        $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw/php/'.$className.'.php';
+        if (!file_exists($fname))
+        {
+          $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/lb/vw/'.$className.'.php';
+        }
       }
     break;
 

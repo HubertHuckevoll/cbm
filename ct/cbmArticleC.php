@@ -1,6 +1,6 @@
 <?php
 
-class articleC extends cbmPageC
+class cbmArticleC extends cbmPageC
 {
   protected string $articleBox = 'entries';
   protected string $articleName = '';
