@@ -63,7 +63,7 @@ class cbmArticleFolderReaderM
    * @return array
    * ________________________________________________________________
    */
-  public function get(string $tags = ''): array
+  public function getByTag(string $tags = ''): array
   {
     $result = [];
 
@@ -78,6 +78,29 @@ class cbmArticleFolderReaderM
         array_push($result, $this->entries[$i]);
       }
     }
+
+    return $result;
+  }
+
+  /**
+   * Summary of getRandom
+   * @param mixed $numElements
+   * @return array
+   * ________________________________________________________________
+   */
+  public function getRandom(int $numElements): array
+  {
+    $result = [];
+  	$artNum = count($this->entries);
+
+  	for($i = 0; $i < $numElements; $i++)
+  	{
+  		$x = random_int(0, $artNum);
+      if (isset($this->entries[$x]))
+      {
+        array_push($result, $this->entries[$x]);
+      }
+  	}
 
     return $result;
   }

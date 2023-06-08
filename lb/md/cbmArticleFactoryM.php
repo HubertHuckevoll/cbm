@@ -15,13 +15,39 @@ class cbmArticleFactoryM
   }
 
   /**
+   * Summary of produceList
+   * @param mixed $startIdx
+   * @param mixed $num
+   * @return array
+   * ________________________________________________________________
+   */
+  public function produceList(): array
+  {
+    $data = [];
+    $result = [];
+    $i = 0;
+
+    for ($i = 0; $i < (count($this->indexData)); $i++)
+    {
+      if (!isset($this->indexData[$i])) break;
+      $data = [];
+      $a = new cbmArticleM($this->indexData[$i]['store'], $this->indexData[$i]['articleBox'], $this->indexData[$i]['articleName']);
+      $data = $a->get();
+
+      array_push($result, $data);
+    }
+
+    return $result;
+  }
+
+  /**
    * Summary of get
    * @param int $startIdx
    * @param int $num
    * @return array
    * ________________________________________________________________
    */
-  public function get(int $startIdx, int $num): array
+  public function produceFromTo(int $startIdx, int $num): array
   {
     $data = [];
     $result = [];

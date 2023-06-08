@@ -47,7 +47,7 @@ class cbmArticleC extends cbmPageC
   {
     $fr = new cbmArticleFolderReaderM($this->store, $this->articleBox);
     $fr->read();
-    $names = $fr->get($this->tags);
+    $names = $fr->getByTag($this->tags);
     $names = array_column($names, 'articleName');
     $idx = array_search($this->articleName, $names);
     $page = ceil($idx / $this->articlesPerPage);
