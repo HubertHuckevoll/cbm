@@ -100,6 +100,7 @@ class cbmArticleFolderReaderM
   		$x = random_int(0, $artNum);
       array_push($result, $this->entries[$x]);
       $result = array_unique($result, SORT_REGULAR);
+      $result = array_values($result);
   	}
 
     return $result;
