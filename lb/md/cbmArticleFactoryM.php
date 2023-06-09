@@ -23,20 +23,7 @@ class cbmArticleFactoryM
    */
   public function produceList(): array
   {
-    $data = [];
-    $result = [];
-    $i = 0;
-
-    for ($i = 0; $i < (count($this->indexData)); $i++)
-    {
-      if (!isset($this->indexData[$i])) break;
-      $data = [];
-      $a = new cbmArticleM($this->indexData[$i]['store'], $this->indexData[$i]['articleBox'], $this->indexData[$i]['articleName']);
-      $data = $a->get();
-
-      array_push($result, $data);
-    }
-
+    $result = $this->produceFromTo(0, count($this->indexData));
     return $result;
   }
 
