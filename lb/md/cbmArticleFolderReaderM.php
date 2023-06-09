@@ -63,7 +63,7 @@ class cbmArticleFolderReaderM
    * @return array
    * ________________________________________________________________
    */
-  public function getByTag(string $tags = ''): array
+  public function get(string $tags = ''): array
   {
     $result = [];
 
@@ -88,18 +88,18 @@ class cbmArticleFolderReaderM
    * @return array
    * ________________________________________________________________
    */
-  public function getRandom(int $numElements): array
+  public function getRandom(string $tags, int $numElements): array
   {
     $result = [];
-  	$artNum = count($this->entries);
+    $entries = $this->get($tags);
+  	$artNum = count($entries) - 1;
+    $numElements = ($numElements > $artNum) ? $artNum : $numElements;
 
-  	for($i = 0; $i < $numElements; $i++)
+  	while(count($result) < $numElements)
   	{
   		$x = random_int(0, $artNum);
-      if (isset($this->entries[$x]))
-      {
-        array_push($result, $this->entries[$x]);
-      }
+      array_push($result, $this->entries[$x]);
+      $result = array_unique($result, SORT_REGULAR);
   	}
 
     return $result;

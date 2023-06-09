@@ -14,7 +14,7 @@ class cbmTeasersC extends cbmPageC
   {
     $this->tags = ($request['tags']) ?? '';
 
-    $pv = new teasersV();
+    $pv = new teasersV('teasersV');
     parent::__construct($pv, $store, $prefs);
   }
 
@@ -30,14 +30,14 @@ class cbmTeasersC extends cbmPageC
 
     $fr = new cbmArticleFolderReaderM($this->store, $this->articleBox);
     $fr->read();
-    $entries = $fr->getRandom(10);
+    $entries = $fr->getRandom($this->tags, 3);
 
     $af = new cbmArticleFactoryM($entries);
     $data = $af->produceList();
 
     $this->view->set('index', 'articles', $data);
 
-    $this->view->drawRandom();
+    $this->view->draw();
   }
 
 }
