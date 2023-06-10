@@ -37,7 +37,7 @@ class cbmTeasersC extends cbmPageC
     $af = new cbmArticleFactoryM($entries);
     $data = $af->produceList();
 
-    $this->view->set('index', 'articles', $data);
+    $this->view->set('teasers', 'articles', $data);
 
     $this->view->draw();
   }
