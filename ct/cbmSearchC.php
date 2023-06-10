@@ -16,7 +16,7 @@ class cbmSearchC extends cbmPageC
     $this->tags = ($request['tags']) ?? '';
     $this->term = ($request['term']) ?? null;
 
-    $pv = new searchV('teasersV'); // FIXME!
+    $pv = new searchV('searchV');
     parent::__construct($pv, $store, $prefs);
   }
 

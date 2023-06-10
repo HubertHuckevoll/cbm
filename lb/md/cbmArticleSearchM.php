@@ -42,7 +42,7 @@ class cbmArticleSearchM
             $hit = $this->extractHit($val, $term, $pos);
             $hit = str_ireplace($term, '<strong>'.$term.'</strong>', $hit);
             array_push($result, [
-              'article' => $article,
+              'article' => $data,
               'hit' => $hit
             ]);
             break; // one hit per article is enough
