@@ -14,17 +14,19 @@ class cbmArticleSearchM
     $this->indexData = $indexData;
   }
 
+  /**
+   * Summary of search
+   * @param string $term
+   * @return array
+   */
   public function search(string $term): array
   {
     $data = [];
     $result = [];
-    $i = 0;
-
     $term = mb_strtolower($term);
 
     foreach($this->indexData as $articleEntry)
     {
-      $data = [];
       $article = new cbmArticleM($articleEntry['store'], $articleEntry['articleBox'], $articleEntry['articleName']);
       $data = $article->get();
 
@@ -61,7 +63,7 @@ class cbmArticleSearchM
   protected function extractHit(string $text, string $searchStr, int $pos): string
   {
     $start = ($pos - 75 > 0) ? $pos - 75 : 0;
-    $hit = substr($text, $start, (strlen($searchStr) + 150));
+    $hit = mb_substr($text, $start, (mb_strlen($searchStr) + 150));
     $hit = '...'.$hit.'...';
 
     return $hit;
