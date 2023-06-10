@@ -18,6 +18,7 @@ class cbmArticleSearchM
    * Summary of search
    * @param string $term
    * @return array
+   * ________________________________________________________________
    */
   public function search(string $term): array
   {
@@ -59,6 +60,7 @@ class cbmArticleSearchM
    * @param string $searchStr
    * @param int $pos
    * @return string
+   * ________________________________________________________________
    */
   protected function extractHit(string $text, string $searchStr, int $pos): string
   {
