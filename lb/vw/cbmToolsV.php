@@ -4,11 +4,11 @@ trait cbmToolsV
 {
 
   /**
-   * Summary of renderBaseTag
+   * Summary of renderBaseHref
    * @return string
    * ________________________________________________________________
    */
-  protected function renderBaseTag(): string
+  protected function renderBaseHref(): string
   {
     $href = dirname($_SERVER['PHP_SELF']);
 
@@ -21,7 +21,17 @@ trait cbmToolsV
     $href = rtrim($href, '/\\');
     $href = $href.'/';
 
-    return '<base href="'.$href.'">';
+    return $href;
+  }
+
+  /**
+   * Summary of renderBaseTag
+   * @return string
+   * ________________________________________________________________
+   */
+  protected function renderBaseTag(): string
+  {
+    return '<base href="'.$this->renderBaseHref().'">';
   }
 
   /**
@@ -39,6 +49,17 @@ trait cbmToolsV
     $html = ($html !== false) ? $html : '-';
 
     return $html;
+  }
+
+  /**
+   * Summary of renderTimestampToIso8601
+   * @param int $timestamp
+   * @return string
+   * ________________________________________________________________
+   */
+  protected function renderTimestampToIso8601(int $timestamp): string
+  {
+    return date('c', $timestamp);
   }
 
   /**
@@ -73,7 +94,7 @@ trait cbmToolsV
                '"@type": "Article",'.
                '"headline": "'.$title.'",'.
                '"author": "'.$author.'",'.
-               '"dateModified": "'.date('c', $date).'",'.
+               '"dateModified": "'.$this->renderTimestampToIso8601($date).'",'.
                (($image0 != '') ? '"image": ["'.$image0.'"]' : '').
             '}'.
             '</script>';
