@@ -12,15 +12,14 @@ class cbmIndexC extends cbmPageC
    * _________________________________________________________________
    */
 
-  public function __construct(string $store, array $request, ?array $prefs = null)
+  public function __construct(string $store, array $request, object $view, ?array $prefs = null)
   {
     $this->requestedPage = ($request['page']) ?? 0;
     $this->tags = ($request['tags']) ?? '';
 
     $this->articlesPerPage = $prefs['articlesPerPage'] ?? 10;
 
-    $pv = new indexV('indexV');
-    parent::__construct($pv, $store, $prefs);
+    parent::__construct($view, $store, $prefs);
   }
 
   /**

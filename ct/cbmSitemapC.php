@@ -10,10 +10,9 @@ class cbmSitemapC extends cbmPageC
    * _________________________________________________________________
    */
 
-  public function __construct(string $store, array $request, ?array $prefs = null)
+  public function __construct(string $store, array $request, object $view, ?array $prefs = null)
   {
-    $pv = new sitemapV('sitemapV');
-    parent::__construct($pv, $store, $prefs);
+    parent::__construct($view, $store, $prefs);
   }
 
   /**

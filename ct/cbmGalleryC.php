@@ -11,10 +11,9 @@ class cbmGalleryC extends cbmPageC
    * Konstruktor
    * _________________________________________________________________
    */
-  public function __construct(string $store, array $request, ?array $prefs = null)
+  public function __construct(string $store, array $request, object $view, ?array $prefs = null)
   {
-    $pv = new galleryV('galleryV');
-    parent::__construct($pv, $store, $prefs);
+    parent::__construct($view, $store, $prefs);
 
     if (!isset($request['articleName'])) throw new Exception('articleName not set.');
     $this->articleName = $request['articleName'];

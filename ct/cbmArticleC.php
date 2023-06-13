@@ -11,10 +11,9 @@ class cbmArticleC extends cbmPageC
    * Konstruktor
    * _________________________________________________________________
    */
-  public function __construct(string $store, array $request, ?array $prefs = null)
+  public function __construct(string $store, array $request, object $view, ?array $prefs = null)
   {
-    $pv = new articleV('articleV');
-    parent::__construct($pv, $store, $prefs);
+    parent::__construct($view, $store, $prefs);
 
     $this->articlesPerPage = $prefs['articlesPerPage'] ?? 10;
 
