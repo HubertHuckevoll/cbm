@@ -37,7 +37,7 @@ class cbmArticleFolderReaderM
 
         foreach($items as $fname)
         {
-          if ($this->getFileExtension($fname) == 'htmlf')
+          if ($this->getFileExtension($fname) == 'xml')
           {
             $data = [];
             $data = $this->createEntry($fname);
@@ -138,7 +138,7 @@ class cbmArticleFolderReaderM
     //$str = '2023-03-15_schneeammer_eule[was,zumfick].htmlf';
     $data = [];
     $matches = [];
-    $re = '/(([[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2})_[0-9a-zäöüÄÖÜ\_\-]*\[?([[:alnum:],]*)\]?).htmlf/m';
+    $re = '/(([[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2})_[0-9a-zäöüÄÖÜ\_\-]*\[?([[:alnum:],]*)\]?).xml/m';
 
     if (preg_match_all($re, $fname, $matches, PREG_SET_ORDER, 0) !== false)
     {

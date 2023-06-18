@@ -19,7 +19,7 @@ class cbmArticleM
     $this->store = $store;
     $this->articleBox = $articleBox;
     $this->articleName = $articleName;
-    $this->articleFile = $_SERVER['DOCUMENT_ROOT'].'/'.$this->store.'/'.$this->articleBox.'/'.$this->articleName.'.xml';
+    $this->articleFile = $_SERVER['DOCUMENT_ROOT'].'/'.$this->store.'/'.$this->articleBox.'/'.$this->articleName.'.htmlf';
   }
 
   /**
@@ -30,30 +30,17 @@ class cbmArticleM
   public function get(): array
   {
     $result = [];
-    $fileContent = $this->readFile();
-    $xml = simplexml_load_string($fileContent, null, LIBXML_NOCDATA | LIBXML_NOBLANKS);
+    $re = '/<cbm-(.*)>(.*)<\/cbm-\1>/iuUs';
 
-    foreach($xml->children() as $nodeName => $nodeVal)
+    $fileContent = $this->readFile();
+    $fileContent = $this->reworkURLs($fileContent);
+
+    preg_match_all($re, $fileContent, $result, PREG_SET_ORDER, 0);
+    $result = array_column($result, 2, 1);
+
+    foreach($result as $tag => &$val)
     {
-      if ($nodeName == 'content')
-      {
-        $result[$nodeName] = $this->reworkURLs((string) $nodeVal);
-      }
-      elseif ($nodeName == 'images')
-      {
-        $result['images'] = [];
-        foreach($nodeVal->children() as $img)
-        {
-          array_push($result['images'], [
-            'src'   => '/'.$this->store.'/'.$this->articleBox.'.assets/'.(string) $img,
-            'title' => (string) $img['title']
-          ]);
-        }
-      }
-      else
-      {
-        $result[$nodeName] = (string) $nodeVal;
-      }
+      $val = $this->exec($tag, $val);
     }
 
     $result['store'] = $this->store;
@@ -96,6 +83,21 @@ class cbmArticleM
     return $dateStamp;
   }
 
+
+  /**
+   * execute a parse function dynamically
+   * _________________________________________________________________
+   */
+  public function exec(string $method, string $tagVal): mixed
+  {
+    if (method_exists($this, $method))
+    {
+      $tagVal = $this->$method($tagVal);
+    }
+
+    return $tagVal;
+  }
+
   /**
    * Summary of reworkURLs
    * @param mixed $html
@@ -124,6 +126,56 @@ class cbmArticleM
     }
 
     return $html;
+  }
+
+  /**
+   * Summary of images
+   * @param mixed $tagVal
+   * @return array
+   * ________________________________________________________________
+   */
+  protected function images(string $tagVal): array
+  {
+    $result = [];
+    $images = [];
+    $rawImgData = [];
+    $finalImgData = [];
+    $re = '';
+
+    $re = '/<img.*>/mU';
+    if (preg_match_all($re, $tagVal, $images, PREG_SET_ORDER, 0) > 0)
+    {
+      $images = array_column($images, 0);
+
+      if (count($images) > 0)
+      {
+        foreach ($images as $img)
+        {
+          $re = '/<img.*src="(.*)".*>/mU';
+          if (preg_match_all($re, $img, $rawImgData, PREG_SET_ORDER, 0) > 0)
+          {
+            if ($rawImgData[0][1] != '')
+            {
+              $finalImgData['src'] = $rawImgData[0][1];
+
+              $re = '/<img.*title="(.*)".*>/mU';
+              if (preg_match_all($re, $img, $rawImgData, PREG_SET_ORDER, 0) > 0)
+              {
+                $finalImgData['title'] = $rawImgData[0][1];
+              }
+              else
+              {
+                $finalImgData['title'] = '';
+              }
+
+              array_push($result, $finalImgData);
+            }
+          }
+        }
+      }
+    }
+
+    return $result;
   }
 
 }
