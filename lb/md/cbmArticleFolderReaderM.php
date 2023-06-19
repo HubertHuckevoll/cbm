@@ -144,8 +144,6 @@ class cbmArticleFolderReaderM
     {
       $matches = $matches[0];
 
-      logger::vh($matches);
-
       $data['store'] = $this->store;
       $data['articleBox'] = $this->articleBox;
       $data['articleName'] = strtolower($matches[1]);
