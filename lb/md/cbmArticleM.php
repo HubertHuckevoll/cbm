@@ -2,6 +2,8 @@
 
 class cbmArticleM
 {
+  use cbmArticleToolsM;
+
   protected string $store = '';
   protected string $articleBox = '';
   protected string $articleName = '';
@@ -90,9 +92,7 @@ class cbmArticleM
    */
   protected function extractDateFromArticleName(): int
   {
-    $dateStr = substr($this->articleName, 0, 10).'T00:00:00'; // 2023-09-01 = 10 characters
-    $dateStamp = strtotime($dateStr);
-
+    $dateStamp = $this->parseFilename($this->articleName.'.xml')['date'];
     return $dateStamp;
   }
 

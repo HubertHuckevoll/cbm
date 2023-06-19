@@ -2,6 +2,8 @@
 
 class cbmArticleFolderReaderM
 {
+  use cbmArticleToolsM;
+
   protected string $store = '';
   protected string $articleBox = '';
   protected array $allTags = [];
@@ -133,31 +135,17 @@ class cbmArticleFolderReaderM
    * parse the filename into date, articleName and tags
    * ________________________________________________________________
    */
-  protected function createEntry(string $fname): bool|array
+  protected function createEntry(string $fname): array
   {
-    //$str = '2023-03-15_schneeammer-eule_urlaub-birb-jadebusen.xml';
     $data = [];
-    $matches = [];
-    $re = '/(([[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2})_([0-9a-z\-]*)_?([[:alnum:]-]*)?).xml$/m';
+    $data = $this->parseFilename($fname);
+    $data['store'] = $this->store;
+    $data['articleBox'] = $this->articleBox;
+    $this->allTags = array_merge($this->allTags, $data['tags']);
+    $this->allTags = array_filter($this->allTags);
+    $this->allTags = array_unique($this->allTags);
 
-    if (preg_match_all($re, $fname, $matches, PREG_SET_ORDER, 0) !== false)
-    {
-      $matches = $matches[0];
-
-      $data['store'] = $this->store;
-      $data['articleBox'] = $this->articleBox;
-      $data['articleName'] = strtolower($matches[1]);
-      $data['date'] = strtotime($matches[2].'T00:00:00');
-      $data['tags'] = ($matches[3] != '') ? array_map('trim', explode('-', $matches[3])) : [];
-
-      $this->allTags = array_merge($this->allTags, $data['tags']);
-      $this->allTags = array_filter($this->allTags);
-      $this->allTags = array_unique($this->allTags);
-
-      return $data;
-    }
-
-    return false;
+    return $data;
   }
 }
 
