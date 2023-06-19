@@ -74,6 +74,7 @@ trait cbmToolsV
     $url = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     $image0 = $this->get('article', 'images')[0]['src'] ?? null;
     $image0 = ($image0 !== null) ? $protocol.$_SERVER['HTTP_HOST'].$image0 : null;
+    $imageTitle = $this->get('article', 'images')[0]['title'] ?? '';
     $summary = $this->get('article', 'summary') ?? '';
     $author = $this->get('article', 'author') ?? $_SERVER['SERVER_NAME'];
     $title = $this->get('article', 'title') ?? '';
@@ -87,6 +88,12 @@ trait cbmToolsV
     $str .= '<meta property="og:type" content="Website">';
     $str .= '<meta property="og:url" content="'.$url.'">';
     $str .= '<meta property="og:site_name" content="'.$_SERVER['SERVER_NAME'].'">';
+
+    $str .= '<meta name="twitter:card" content="'.$imageTitle.'">';
+    $str .= '<meta name="twitter:url" content="'.$url.'"/>';
+    $str .= '<meta name="twitter:title" content="'.$title.'">';
+    $str .= '<meta name="twitter:description" content="'.$summary.'">';
+    $str .= '<meta name="twitter:image" content="'.$image0.'">';
 
     $str .= '<script type="application/ld+json">'.
             '{'.
