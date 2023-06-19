@@ -42,7 +42,7 @@ trait cbmToolsV
    */
   protected function renderDate(int $timestamp): bool|string
   {
-    $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    $locale = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']) : null;
     $formatter = new \IntlDateFormatter($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE);
 
     $html = $formatter->format($timestamp);
