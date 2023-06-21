@@ -2,6 +2,7 @@
 
 class cbmSearchC extends cbmPageC
 {
+  protected string $store = '';
   protected string $articleBox = 'entries';
   protected string $tags = '';
   protected ?string $term = null;
@@ -11,12 +12,13 @@ class cbmSearchC extends cbmPageC
    * _________________________________________________________________
    */
 
-  public function __construct(string $store, array $request, object $view, array $prefs = null)
+  public function __construct(array $request, object $view, array $prefs = null)
   {
+    $this->store = $prefs['store'] ?? null;
+    parent::__construct($request, $view, $prefs);
+
     $this->tags = ($request['tags']) ?? '';
     $this->term = ($request['term']) ?? null;
-
-    parent::__construct($view, $store, $prefs);
   }
 
   /**

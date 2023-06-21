@@ -2,21 +2,20 @@
 
 class cbmPageC
 {
+  protected array $request = [];
   protected object $view;
-  protected string $store = '';
   protected ?array $prefs = null;
 
   /**
    * Summary of __construct
    * @param mixed $view
-   * @param mixed $store
    * @param mixed $prefs
    * ________________________________________________________________
    */
-  public function __construct(object $view, string $store, ?array $prefs = null)
+  public function __construct(array $request, object $view, ?array $prefs = null)
   {
+    $this->request = $request;
     $this->view = $view;
-    $this->store = $store;
     $this->prefs = $prefs;
   }
 }

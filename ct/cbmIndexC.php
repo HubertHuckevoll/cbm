@@ -2,6 +2,7 @@
 
 class cbmIndexC extends cbmPageC
 {
+  protected string $store = '';
   protected string $articleBox = 'entries';
   protected mixed $requestedPage = null;
   public ?int $articlesPerPage = null;
@@ -12,14 +13,15 @@ class cbmIndexC extends cbmPageC
    * _________________________________________________________________
    */
 
-  public function __construct(string $store, array $request, object $view, ?array $prefs = null)
+  public function __construct(array $request, object $view, ?array $prefs = null)
   {
+    $this->store = $prefs['store'] ?? null;
+    parent::__construct($request, $view, $prefs);
+
     $this->requestedPage = ($request['page']) ?? 0;
     $this->tags = ($request['tags']) ?? '';
 
     $this->articlesPerPage = $prefs['articlesPerPage'] ?? 10;
-
-    parent::__construct($view, $store, $prefs);
   }
 
   /**

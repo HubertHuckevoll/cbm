@@ -2,6 +2,7 @@
 
 class cbmArticleC extends cbmPageC
 {
+  protected string $store = '';
   protected string $articleBox = 'entries';
   protected string $articleName = '';
   public ?int $articlesPerPage = null;
@@ -11,9 +12,10 @@ class cbmArticleC extends cbmPageC
    * Konstruktor
    * _________________________________________________________________
    */
-  public function __construct(string $store, array $request, object $view, ?array $prefs = null)
+  public function __construct(array $request, object $view, ?array $prefs = null)
   {
-    parent::__construct($view, $store, $prefs);
+    $this->store = $prefs['store'] ?? null;
+    parent::__construct($request, $view, $prefs);
 
     $this->articlesPerPage = $prefs['articlesPerPage'] ?? 10;
 

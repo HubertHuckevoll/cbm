@@ -2,18 +2,18 @@
 
 class cbmAppC
 {
-  protected string $store = '';
   protected string $mainControllerName = 'indexC';
   protected string $mainMethodName = 'show';
+  protected $pathInfoAssignCallback = null;
   protected ?array $prefs = null;
 
   /**
    * Konstruktor
    * ________________________________________________________________
    */
-  public function __construct(string $store, ?array $prefs = null)
+  public function __construct(?callable $pathInfoAssignCallback = null, ?array $prefs = null)
   {
-    $this->store = $store;
+    $this->pathInfoAssignCallback = $pathInfoAssignCallback;
     $this->prefs = $prefs;
   }
 
@@ -25,7 +25,7 @@ class cbmAppC
   {
     $modName = '';
     $methodName = '';
-    $rm = new cbmRequestM();
+    $rm = new cbmRequestM($this->pathInfoAssignCallback);
 
     $request = $rm->get();
 
@@ -53,7 +53,7 @@ class cbmAppC
 
     try
     {
-      $controllerObj = new $modName($this->store, $request, $this->prefs);
+      $controllerObj = new $modName($request, $this->prefs);
 
       if ((isset($controllerObj) && method_exists($controllerObj, $methodName)))
       {
@@ -67,7 +67,6 @@ class cbmAppC
     catch (Throwable $e)
     {
       die($e->getMessage());
-      //FIXME: $this->redirect();
     }
   }
 
