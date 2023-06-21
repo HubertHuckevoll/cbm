@@ -1,6 +1,6 @@
 <?php
 
-class cbmPageV extends cbmBaseV
+class cbmPageV extends cBaseV
 {
 
   /**

@@ -1,6 +1,6 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'].'/cbm/lb/logger.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/coins/loader.php');
 
 /**
  * CBM Auto loader
@@ -19,10 +19,6 @@ spl_autoload_register(function($className)
       if (!file_exists($fname))
       {
         $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw/'.$className.'.php';
-        if (!file_exists($fname))
-        {
-          $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/lb/vw/'.$className.'.php';
-        }
       }
     break;
 
@@ -31,10 +27,6 @@ spl_autoload_register(function($className)
       if (!file_exists($fname))
       {
         $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/md/'.$className.'.php';
-        if (!file_exists($fname))
-        {
-          $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/lb/md/'.$className.'.php';
-        }
       }
     break;
 
@@ -43,10 +35,6 @@ spl_autoload_register(function($className)
       if (!file_exists($fname))
       {
         $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/ct/'.$className.'.php';
-        if (!file_exists($fname))
-        {
-          $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/lb/ct/'.$className.'.php';
-        }
       }
     break;
   }

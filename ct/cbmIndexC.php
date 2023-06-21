@@ -1,6 +1,6 @@
 <?php
 
-class cbmIndexC extends cbmPageC
+class cbmIndexC extends cPageC
 {
   protected string $store = '';
   protected string $articleBox = 'entries';

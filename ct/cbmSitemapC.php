@@ -1,6 +1,6 @@
 <?php
 
-class cbmSitemapC extends cbmPageC
+class cbmSitemapC extends cPageC
 {
   protected string $store = '';
   protected string $articleBox = 'entries';
