@@ -1,6 +1,6 @@
 <?php
 
-trait cbmToolsV
+class cbmPageV extends cbmBaseV
 {
 
   /**

@@ -1,9 +1,7 @@
 <?php
 
-class cbmPageV
+class cbmBaseV
 {
-  use cbmToolsV;
-
   protected array $data = [];
   protected string $templName = '';
   protected string $htmlTemplate = '';
