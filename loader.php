@@ -10,31 +10,33 @@ spl_autoload_register(function($className)
 {
   $fname = null;
 
+  $localFolder = dirname($_SERVER['SCRIPT_FILENAME']).'/';
+  $cbmFolder = $_SERVER['DOCUMENT_ROOT'].'/cbm/';
   $ct = substr($className, -1);
 
   switch($ct)
   {
     case 'V':
-      $fname = dirname($_SERVER['SCRIPT_FILENAME']).'/vw/php/'.$className.'.php';
+      $fname = $localFolder.'vw/php/'.$className.'.php';
       if (!file_exists($fname))
       {
-        $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/vw/'.$className.'.php';
+        $fname = $cbmFolder.'vw/'.$className.'.php';
       }
     break;
 
     case 'M':
-      $fname = dirname($_SERVER['SCRIPT_FILENAME']).'/md/'.$className.'.php';
+      $fname = $localFolder.'md/'.$className.'.php';
       if (!file_exists($fname))
       {
-        $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/md/'.$className.'.php';
+        $fname = $cbmFolder.'md/'.$className.'.php';
       }
     break;
 
     case 'C':
-      $fname = dirname($_SERVER['SCRIPT_FILENAME']).'/ct/'.$className.'.php';
+      $fname = $localFolder.'ct/'.$className.'.php';
       if (!file_exists($fname))
       {
-        $fname = $_SERVER['DOCUMENT_ROOT'].'/cbm/ct/'.$className.'.php';
+        $fname = $cbmFolder.'ct/'.$className.'.php';
       }
     break;
   }
