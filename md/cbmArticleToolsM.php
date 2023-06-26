@@ -16,9 +16,6 @@ trait cbmArticleToolsM
     if (preg_match_all($re, $fname, $matches, PREG_SET_ORDER, 0) !== false)
     {
       $matches = $matches[0];
-
-      logger::vh($matches);
-
       $data['articleName'] = $matches[1];
       $data['date'] = strtotime($matches[2].'T00:00:00');
       $data['tags'] = ($matches[3] != '') ? array_map('trim', explode('-', $matches[3])) : [];

@@ -217,9 +217,9 @@ class cbmV extends cAppV
     $erg = '<div>'.
             '<div>'.
               '<p>'.
-                '<a href="'.$prev.'" title="Voriges Bild"><span>&laquo;</span></a>&nbsp;'.
-                '<a href="'.$next.'" title="Nächstes Bild"><span>&raquo;</span></a>&nbsp;'.
-                '<a href="'.$back.'" title="Zur&uuml;ck"><span>x</span></a>'.
+                '<a href="'.$prev.'" title="Previous"><span>&laquo;</span></a>&nbsp;'.
+                '<a href="'.$next.'" title="Next"><span>&raquo;</span></a>&nbsp;'.
+                '<a href="'.$back.'" title="Back"><span>x</span></a>'.
               '</p>'.
             '</div>'.
             '<div>'.
