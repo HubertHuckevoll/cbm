@@ -165,6 +165,159 @@ class cbmV extends cAppV
     return $str;
   }
 
+  /**
+   * Summary of renderImageList
+   * @param array $article
+   * @param string $tags
+   * @return string
+   * ________________________________________________________________
+   */
+  protected function renderImageList(array $article, string $tags): string
+  {
+    $html = '';
+    $imgs = $article['images'] ?? null;
+    $name = $article['articleName'];
+
+    if ($imgs !== null)
+    {
+      for($i=0; $i < count($imgs); $i++)
+      {
+        $img = $imgs[$i];
+        $html .= '<a href="'.$this->renderHrefGallery($name, $i, $tags).'">'.
+                    '<img height="250" src="'.$img['src'].'" title="'.$img['title'].'" alt="'.$img['title'].'">'.
+                 '</a>&nbsp;';
+      }
+    }
+
+    return $html;
+  }
+
+  /**
+   * Summary of renderGallery
+   * @param array $article
+   * @param array $gallery
+   * @param string $tags
+   * @return string
+   * ________________________________________________________________
+   */
+  public function renderGallery(array $article, array $gallery, string $tags): string
+  {
+    $curIdx  = $gallery['curIdx'];
+    $nextIdx = $gallery['nextIdx'];
+    $prevIdx = $gallery['prevIdx'];
+
+    $cur         = $article['images'][$curIdx]['src'];
+    $curDesc     = $article['images'][$curIdx]['title'];
+    $articleName = $article['articleName'];
+
+    $prev = $this->renderHrefGallery($articleName, $prevIdx, $tags);
+    $next = $this->renderHrefGallery($articleName, $nextIdx, $tags);
+    $back = $this->renderHrefArticle($articleName, $tags);
+
+    $erg = '<div>'.
+            '<div>'.
+              '<p>'.
+                '<a href="'.$prev.'" title="Voriges Bild"><span>&laquo;</span></a>&nbsp;'.
+                '<a href="'.$next.'" title="Nächstes Bild"><span>&raquo;</span></a>&nbsp;'.
+                '<a href="'.$back.'" title="Zur&uuml;ck"><span>x</span></a>'.
+              '</p>'.
+            '</div>'.
+            '<div>'.
+              '<a href="'.$next.'">'.
+                 '<img alt="'.$curDesc.'" title="'.$curDesc.'" src="'.$cur.'">'.
+              '</a>'.
+              '<p><em>'.$curDesc.'</em></p>'.
+            '</div>'.
+          '</div>';
+
+    return $erg;
+  }
+
+  /**
+   * Summary of renderArticleList
+   * @param array $articles
+   * @param string $tags
+   * @return string
+   * ________________________________________________________________
+   */
+  protected function renderArticleList(array $articles, string $tags): string
+  {
+    $listHtml = '<ul>';
+    foreach($articles as $item)
+    {
+      $listHtml .= '<li>'.
+                    '<a href="'.$this->renderHrefArticle($item['articleName'], $tags).'">'.$item['title'].'</a>'.
+                    '<p>'.$item['summary'].'</p>'.
+                   '</li>';
+    }
+    $listHtml .= '</ul>';
+
+    return $listHtml;
+  }
+
+  /**
+   * Summary of renderArticleListPages
+   * @param array $index
+   * @param array $articles
+   * @return string
+   * ________________________________________________________________
+   */
+  protected function renderArticleListPages(array $index, array $articles): string
+  {
+    $page = $index['page'];
+    $maxPage = $index['maxPage'];
+
+    $pageNrHtml = '<hr>';
+    for ($i = 0; $i < $maxPage; $i++)
+    {
+      if ($i == $page)
+      {
+        $pageNrHtml .= '<span>'.($i+1).'</span>&nbsp;';
+      }
+      else
+      {
+        $pageNrHtml .= '<a href="'.$this->renderHrefIndex($i, $index['tags']).'"><span>'.($i+1).'</span></a>&nbsp;';
+      }
+    }
+
+    return $pageNrHtml;
+  }
+
+  /**
+   * Summary of renderSearchResults
+   * @param array $entries
+   * @param string $tags
+   * @return string
+   * ________________________________________________________________
+   */
+  protected function renderSearchResults(array $entries, string $tags): string
+  {
+    $str = '';
+    foreach($entries as $entry)
+    {
+      $str .= '<p><a href="'.$this->renderHrefArticle($entry['article']['articleName'], $tags).'">'.$entry['hit'].'</a></p>';
+    }
+    return $str;
+  }
+
+  /**
+   * Summary of renderTeaserList
+   * @param array $articles
+   * @param string $tags
+   * @return string
+   * ________________________________________________________________
+   */
+  protected function renderTeaserList(array $articles, string $tags): string
+  {
+    $str = '';
+    foreach($articles as $article)
+    {
+      $str .= '<p><a href="'.$this->renderHrefArticle($article['articleName'], $tags).'">'.$article['articleName'].'</a></p>';
+    }
+
+    return $str;
+  }
+
 }
 
 ?>
