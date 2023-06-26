@@ -1,6 +1,6 @@
 <?php
 
-class cbmV extends cPageV
+class cbmV extends cAppV
 {
 
   /**
@@ -67,18 +67,18 @@ class cbmV extends cPageV
    * @return string
    * ________________________________________________________________
    */
-  protected function renderArticleMetadata(): string
+  protected function renderArticleMetadata(array $article): string
   {
     $str = '';
     $protocol = ($_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
     $url = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-    $image0 = $this->get('article', 'images')[0]['src'] ?? null;
+    $image0 = $article['images'][0]['src'] ?? null;
     $image0 = ($image0 !== null) ? $protocol.$_SERVER['HTTP_HOST'].$image0 : null;
-    $imageTitle = $this->get('article', 'images')[0]['title'] ?? '';
-    $summary = $this->get('article', 'summary') ?? '';
-    $author = $this->get('article', 'author') ?? $_SERVER['SERVER_NAME'];
-    $title = $this->get('article', 'title') ?? '';
-    $date = $this->get('article', 'date') ?? '';
+    $imageTitle = $article['images'][0]['title'] ?? '';
+    $summary = $article['summary'] ?? '';
+    $author = $article['author'] ?? $_SERVER['SERVER_NAME'];
+    $title = $article['title'] ?? '';
+    $date = $article['date'] ?? '';
 
     $str .= '<meta name="description" content="'.$summary.'">';
     $str .= '<meta name="author" content="'.$author.'">';
@@ -115,9 +115,9 @@ class cbmV extends cPageV
    * @return string
    * ________________________________________________________________
    */
-  protected function renderHrefIndex(?int $page): string
+  protected function renderHrefIndex(?int $page, ?string $tags = null): string
   {
-    $tags = ($this->get('index', 'tags') !== '') ? '/['.$this->get('index', 'tags').']' : '';
+    $tags = ($tags !== '') ? '/_'.$tags.'_' : '';
     $str = 'index.php/indexC/show'.$tags.'?page='.$page;
 
     return $str;
@@ -129,9 +129,9 @@ class cbmV extends cPageV
    * @return string
    * ________________________________________________________________
    */
-  protected function renderHrefArticle(string $articleName): string
+  protected function renderHrefArticle(string $articleName, ?string $tags = null): string
   {
-    $tags = ($this->get('index', 'tags') !== '') ? '/['.$this->get('index', 'tags').']/' : '/';
+    $tags = ($tags !== '') ? '/_'.$tags.'_/' : '/';
     $str  = 'index.php/articleC/show'.$tags.$articleName;
 
     return $str;
@@ -144,9 +144,9 @@ class cbmV extends cPageV
    * @return string
    * ________________________________________________________________
    */
-  protected function renderHrefGallery(string $articleName, int $idx): string
+  protected function renderHrefGallery(string $articleName, int $idx, ?string $tags = null): string
   {
-    $tags = ($this->get('index', 'tags') !== '') ? '/['.$this->get('index', 'tags').']/' : '/';
+    $tags = ($tags !== '') ? '/_'.$tags.'_/' : '/';
     $str  = 'index.php/galleryC/show'.$tags.$articleName.'?imgIdx='.$idx;
 
     return $str;

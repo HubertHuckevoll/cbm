@@ -30,19 +30,15 @@ class cbmGalleryC extends cPageC
   public function show(): void
   {
     $ar = new cbmArticleM($this->store, $this->articleBox, $this->articleName);
-    $data = $ar->get();
+    $article = $ar->get();
 
-    $curIdx  = isset($data['images'][$this->imgIdx]) ? $this->imgIdx : 0;
-    $prevIdx = isset($data['images'][$this->imgIdx - 1]) ? ($this->imgIdx - 1) : (count($data['images']) - 1);
-    $nextIdx = isset($data['images'][$this->imgIdx + 1]) ? ($this->imgIdx + 1) : 0;
+    $gallery['curIdx']  = isset($article['images'][$this->imgIdx]) ? $this->imgIdx : 0;
+    $gallery['prevIdx'] = isset($article['images'][$this->imgIdx - 1]) ? ($this->imgIdx - 1) : (count($article['images']) - 1);
+    $gallery['nextIdx'] = isset($article['images'][$this->imgIdx + 1]) ? ($this->imgIdx + 1) : 0;
 
-    $this->view->set('index', 'tags', $this->tags);
-    $this->view->set('article', $data);
-    $this->view->set('gallery', 'curIdx', $curIdx);
-    $this->view->set('gallery', 'nextIdx', $nextIdx);
-    $this->view->set('gallery', 'prevIdx', $prevIdx);
+    $index['tags'] = $this->tags;
 
-    $this->view->draw();
+    $this->view->drawPage($index, $article, $gallery);
   }
 }
 

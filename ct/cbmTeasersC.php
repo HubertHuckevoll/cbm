@@ -36,11 +36,9 @@ class cbmTeasersC extends cPageC
     $entries = $fr->getRandom($this->tags, $this->num);
 
     $af = new cbmArticleFactoryM($entries);
-    $data = $af->produceList();
+    $articles = $af->produceList();
 
-    $this->view->set('teasers', 'articles', $data);
-
-    $this->view->draw();
+    $this->view->drawPage($articles, $this->tags);
   }
 
 }

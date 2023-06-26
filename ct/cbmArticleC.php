@@ -31,12 +31,10 @@ class cbmArticleC extends cPageC
   public function show(): void
   {
     $ar = new cbmArticleM($this->store, $this->articleBox, $this->articleName);
-    $data = $ar->get();
-    $this->view->set('article', $data);
-    $this->view->set('index', 'articleBoxPage', $this->getBoxPageForArticle());
-    $this->view->set('index', 'tags', $this->tags);
+    $article = $ar->get();
+    $index = ['articleBoxPage' => $this->getBoxPageForArticle(), 'tags' => $this->tags];
 
-    $this->view->draw();
+    $this->view->drawPage($index, $article);
   }
 
   /**

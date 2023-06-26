@@ -45,14 +45,13 @@ class cbmIndexC extends cPageC
 
     $af = new cbmArticleFactoryM($entries);
 
-    $data = $af->produceFromTo(($page * $this->articlesPerPage), $this->articlesPerPage);
+    $articles = $af->produceFromTo(($page * $this->articlesPerPage), $this->articlesPerPage);
 
-    $this->view->set('index', 'maxPage', $maxPage);
-    $this->view->set('index', 'page', $page);
-    $this->view->set('index', 'tags', $this->tags);
-    $this->view->set('articles', $data);
+    $index['maxPage'] = $maxPage;
+    $index['page'] = $page;
+    $index['tags'] = $this->tags;
 
-    $this->view->draw();
+    $this->view->drawPage($index, $articles);
   }
 
 }

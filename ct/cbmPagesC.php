@@ -26,10 +26,9 @@ class cbmPagesC extends cPageC
   public function show(): void
   {
     $ar = new cbmArticleM($this->store, $this->articleBox, $this->articleName);
-    $data = $ar->get();
+    $article = $ar->get();
 
-    $this->view->set('article', $data);
-    $this->view->draw();
+    $this->view->drawPage($article);
   }
 }
 

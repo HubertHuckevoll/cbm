@@ -38,9 +38,7 @@ class cbmSearchC extends cPageC
     $af = new cbmArticleSearchM($entries);
     $data = $af->search($this->term);
 
-    $this->view->set('search', 'results', $data);
-
-    $this->view->draw();
+    $this->view->drawPage($data, $this->tags);
   }
 
 }

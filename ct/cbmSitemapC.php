@@ -23,20 +23,19 @@ class cbmSitemapC extends cPageC
    */
   public function create(): void
   {
-    $entries = [];
+    $articles = [];
+    $pages = [];
     $fr = null;
 
     $fr = new cbmArticleFolderReaderM($this->store, $this->articleBox);
     $fr->read();
-    $entries = $fr->get();
-    $this->view->set('sitemap', 'articles', $entries);
+    $articles = $fr->get();
 
     $fr = new cbmArticleFolderReaderM($this->store, $this->pagesBox);
     $fr->read();
-    $entries = $fr->get();
-    $this->view->set('sitemap', 'pages', $entries);
+    $pages = $fr->get();
 
-    $this->view->draw();
+    $this->view->drawPage($articles, $pages);
   }
 
 }
