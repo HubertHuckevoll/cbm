@@ -36,9 +36,7 @@ class cbmGalleryC extends cPageC
     $gallery['prevIdx'] = isset($article['images'][$this->imgIdx - 1]) ? ($this->imgIdx - 1) : (count($article['images']) - 1);
     $gallery['nextIdx'] = isset($article['images'][$this->imgIdx + 1]) ? ($this->imgIdx + 1) : 0;
 
-    $index['tags'] = $this->tags;
-
-    $this->view->drawPage($index, $article, $gallery);
+    $this->view->drawPage($article, $gallery, $this->tags);
   }
 }
 
