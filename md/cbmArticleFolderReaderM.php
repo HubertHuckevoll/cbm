@@ -71,9 +71,9 @@ class cbmArticleFolderReaderM
 
     if ($tags == '') return $this->entries;
 
-    $tags = array_map('trim', explode(',', $tags));
+    $tags = array_map('trim', explode('-', $tags));
 
-    for($i=0; $i < count($this->entries); $i++)
+    for($i = 0; $i < count($this->entries); $i++)
     {
       if (count(array_intersect($tags, $this->entries[$i]['tags'])) > 0)
       {

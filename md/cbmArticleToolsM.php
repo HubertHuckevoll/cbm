@@ -8,14 +8,17 @@ trait cbmArticleToolsM
    */
   protected function parseFilename(string $fname): bool|array
   {
-    //$str = '2023-03-15_schneeammer-eule_urlaub-birb-jadebusen.xml';
+    //$str = '2023-03-15_schneeammer_urlaub-birb-jadebusen.xml';
     $data = [];
     $matches = [];
-    $re = '/(([[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2})_([0-9a-z\-]*)_?([[:alnum:]-]*)?).xml$/m';
+    $re = '/(([[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2})_(?:[0-9a-z\-]*)_?([[:alnum:]-]*)?).xml$/mUD';
 
     if (preg_match_all($re, $fname, $matches, PREG_SET_ORDER, 0) !== false)
     {
       $matches = $matches[0];
+
+      logger::vh($matches);
+
       $data['articleName'] = $matches[1];
       $data['date'] = strtotime($matches[2].'T00:00:00');
       $data['tags'] = ($matches[3] != '') ? array_map('trim', explode('-', $matches[3])) : [];
