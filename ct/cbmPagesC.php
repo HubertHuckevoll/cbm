@@ -12,9 +12,9 @@ class cbmPagesC extends cPageC
    */
   public function __construct(array $request, object $view, ?array $prefs = null)
   {
-    $this->store = $prefs['store'] ?? null;
     parent::__construct($request, $view, $prefs);
 
+    $this->store = $prefs['store'] ?? null;
     if (!isset($request['articleName'])) throw new Exception('articleName not set.');
     $this->articleName = $request['articleName'];
   }

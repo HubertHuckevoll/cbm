@@ -14,9 +14,9 @@ class cbmSearchC extends cPageC
 
   public function __construct(array $request, object $view, array $prefs = null)
   {
-    $this->store = $prefs['store'] ?? null;
     parent::__construct($request, $view, $prefs);
 
+    $this->store = $prefs['store'] ?? null;
     $this->tags = ($request['tags']) ?? '';
     $this->term = ($request['term']) ?? null;
   }
