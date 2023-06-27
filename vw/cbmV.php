@@ -185,7 +185,7 @@ class cbmV extends cAppV
         $img = $imgs[$i];
         $html .= '<a href="'.$this->renderHrefGallery($name, $i, $tags).'">'.
                     '<img height="250" src="'.$img['src'].'" title="'.$img['title'].'" alt="'.$img['title'].'">'.
-                 '</a>&nbsp;';
+                 '</a>';
       }
     }
 
@@ -214,21 +214,21 @@ class cbmV extends cAppV
     $next = $this->renderHrefGallery($articleName, $nextIdx, $tags);
     $back = $this->renderHrefArticle($articleName, $tags);
 
-    $erg = '<div>'.
-            '<div>'.
-              '<p>'.
-                '<a href="'.$prev.'" title="Previous"><span>&laquo;</span></a>&nbsp;'.
-                '<a href="'.$next.'" title="Next"><span>&raquo;</span></a>&nbsp;'.
-                '<a href="'.$back.'" title="Back"><span>x</span></a>'.
-              '</p>'.
-            '</div>'.
-            '<div>'.
-              '<a href="'.$next.'">'.
-                 '<img alt="'.$curDesc.'" title="'.$curDesc.'" src="'.$cur.'">'.
-              '</a>'.
-              '<p><em>'.$curDesc.'</em></p>'.
-            '</div>'.
-          '</div>';
+    $erg = <<<GALL
+      <p>
+        <a href="$prev" title="Previous"><span>&laquo;</span></a>&nbsp;
+        <a href="$next" title="Next"><span>&raquo;</span></a>&nbsp;
+        <a href="$back" title="Back"><span>x</span></a>
+      </p>
+      <p>
+        <a href="$next">
+          <img alt="$curDesc" title="$curDesc" src="$cur">
+        </a>
+      </p>
+      <p>
+        $curDesc
+      </p>
+    GALL;
 
     return $erg;
   }
