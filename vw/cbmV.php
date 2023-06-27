@@ -216,9 +216,9 @@ class cbmV extends cAppV
 
     $erg = <<<GALL
       <p>
-        <a href="$prev" title="Previous"><span>&laquo;</span></a>&nbsp;
-        <a href="$next" title="Next"><span>&raquo;</span></a>&nbsp;
-        <a href="$back" title="Back"><span>x</span></a>
+        <a href="$prev" title="Previous"><button>&laquo;</button></a>
+        <a href="$next" title="Next"><button>&raquo;</button></a>
+        <a href="$back" title="Back"><button>x</button></a>
       </p>
       <p>
         <a href="$next">
