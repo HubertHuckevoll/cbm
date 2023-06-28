@@ -90,7 +90,7 @@ class cbmV extends cAppV
     $str .= '<meta property="og:site_name" content="'.$_SERVER['SERVER_NAME'].'">';
 
     $str .= '<meta name="twitter:card" content="'.$imageTitle.'">';
-    $str .= '<meta name="twitter:url" content="'.$url.'"/>';
+    $str .= '<meta name="twitter:url" content="'.$url.'">';
     $str .= '<meta name="twitter:title" content="'.$title.'">';
     $str .= '<meta name="twitter:description" content="'.$summary.'">';
     $str .= '<meta name="twitter:image" content="'.$image0.'">';
@@ -200,7 +200,7 @@ class cbmV extends cAppV
    * @return string
    * ________________________________________________________________
    */
-  public function renderGallery(array $article, array $gallery, string $tags): string
+  protected function renderGallery(array $article, array $gallery, string $tags): string
   {
     $curIdx  = $gallery['curIdx'];
     $nextIdx = $gallery['nextIdx'];
@@ -246,8 +246,8 @@ class cbmV extends cAppV
     foreach($articles as $item)
     {
       $listHtml .= '<li>'.
-                    '<a href="'.$this->renderHrefArticle($item['articleName'], $tags).'">'.$item['title'].'</a>'.
-                    '<p>'.$item['summary'].'</p>'.
+                     '<a href="'.$this->renderHrefArticle($item['articleName'], $tags).'">'.$item['title'].'</a>'.
+                     '<p>'.$item['summary'].'</p>'.
                    '</li>';
     }
     $listHtml .= '</ul>';
