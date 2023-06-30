@@ -11,9 +11,9 @@ class cbmSitemapC extends cPageC
    * _________________________________________________________________
    */
 
-  public function __construct(array $request, object $view, ?array $prefs = null)
+  public function __construct(array $request, ?array $prefs = null, ?object $view = null)
   {
-    parent::__construct($request, $view, $prefs);
+    parent::__construct($request, $prefs, $view);
 
     $this->store = $prefs['store'] ?? null;
   }
