@@ -72,9 +72,11 @@ class cbmV extends cAppV
     $str = '';
     $protocol = ($_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
     $url = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-    $image0 = $article['xml']->images[0]['src'] ?? null;
-    $image0 = ($image0 !== null) ? $protocol.$_SERVER['HTTP_HOST'].$image0 : null;
-    $imageTitle = $article['xml']->images[0]['title'] ?? '';
+
+    $image0 = $article['xml']->images->children()[0] ?? null;
+    $image0 = ($image0 !== null) ? $this->makeAssetURL($article, $image0, true) : null;
+
+    $imageTitle = $article['xml']->images->children()[0]['title'] ?? '';
     $summary = $article['xml']->summary ?? '';
     $author = $article['xml']->author ?? $_SERVER['SERVER_NAME'];
     $title = $article['xml']->title ?? '';
@@ -185,7 +187,7 @@ class cbmV extends cAppV
         $img = $imgs[$i];
         $html .= '<a href="'.$this->renderHrefGallery($name, $i, $tags).'">'.
                     '<img height="250"'.
-                         'src="/'.$article['store'].'/'.$article['articleBox'].'.assets/'.$img.'"'.
+                         'src="'.$this->makeAssetURL($article, $img).'"'.
                          'title="'.$img['title'].'"'.
                          'alt="'.$img['title'].'">'.
                  '</a>';
@@ -225,7 +227,7 @@ class cbmV extends cAppV
       </p>
       <p>
         <a href="$next">
-          <img alt="$curDesc" title="$curDesc" src="/{$article['store']}/{$article['articleBox']}.assets/$cur">
+          <img alt="$curDesc" title="$curDesc" src="{$this->makeAssetURL($article, $cur)}">
         </a>
       </p>
       <p>
@@ -327,13 +329,8 @@ class cbmV extends cAppV
    * @return array|string|null
    * ________________________________________________________________
    */
-  protected function reworkURLs(string $html, string $store, string $articleBox): array|string|null
+  protected function reworkURLs(array $article, string $html): ?string
   {
-    // rework image urls
-    $pattern = '/src="([^\/]*)"/mU';
-    $replacement = 'src="/'.$store.'/'.$articleBox.'.assets/'.'$1"';
-    $html = preg_replace($pattern, $replacement, $html);
-
     // rework hrefs with download attribute
     $pattern = '/<a.*href="(.*)".*>/mU';
     $links = [];
@@ -343,12 +340,27 @@ class cbmV extends cAppV
       {
         if (strpos(strtolower($link[0]), 'download') !== false)
         {
-          $html = str_replace('href="'.$link[1].'"', 'href="'.'/'.$store.'/'.$articleBox.'.assets/'.$link[1].'"', $html);
+          $html = str_replace('href="'.$link[1].'"', 'href="'.$this->makeAssetURL($article, $link[1]).'"', $html);
         }
       }
     }
 
     return $html;
+  }
+
+  protected function makeAssetURL($article, $file, $absoluteURL = false): string
+  {
+    $str = '';
+    $str = '/'.$article['store'].'/'.$article['articleBox'].'.assets/'.$file;
+
+    if ($absoluteURL == true)
+    {
+      $protocol = ($_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+      // $_SERVER['REQUEST_URI'];
+      $str = $protocol.$_SERVER['HTTP_HOST'].$str;
+    }
+
+    return $str;
   }
 
 }
