@@ -44,7 +44,7 @@ class cbmArticleFactoryM
     {
       if (!isset($this->indexData[$i])) break;
       $data = [];
-      $a = new cbmArticleM($this->indexData[$i]['store'], $this->indexData[$i]['articleBox'], $this->indexData[$i]['articleName']);
+      $a = new cbmXmlM($this->indexData[$i]['store'], $this->indexData[$i]['articleBox'], $this->indexData[$i]['articleName']);
       $data = $a->get();
 
       array_push($result, $data);

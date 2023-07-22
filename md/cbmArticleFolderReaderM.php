@@ -2,7 +2,7 @@
 
 class cbmArticleFolderReaderM
 {
-  use cbmArticleToolsM;
+  use cbmToolsM;
 
   protected string $store = '';
   protected string $articleBox = '';

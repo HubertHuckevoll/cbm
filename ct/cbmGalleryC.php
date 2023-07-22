@@ -29,12 +29,12 @@ class cbmGalleryC extends cPageC
    */
   public function show(): void
   {
-    $ar = new cbmArticleM($this->store, $this->articleBox, $this->articleName);
+    $ar = new cbmXmlM($this->store, $this->articleBox, $this->articleName);
     $article = $ar->get();
 
-    $gallery['curIdx']  = isset($article['images'][$this->imgIdx]) ? $this->imgIdx : 0;
-    $gallery['prevIdx'] = isset($article['images'][$this->imgIdx - 1]) ? ($this->imgIdx - 1) : (count($article['images']) - 1);
-    $gallery['nextIdx'] = isset($article['images'][$this->imgIdx + 1]) ? ($this->imgIdx + 1) : 0;
+    $gallery['curIdx']  = isset($article['xml']->images->children()[$this->imgIdx]) ? $this->imgIdx : 0;
+    $gallery['prevIdx'] = isset($article['xml']->images->children()[$this->imgIdx - 1]) ? ($this->imgIdx - 1) : ($article['xml']->images->count() - 1);
+    $gallery['nextIdx'] = isset($article['xml']->images->children()[$this->imgIdx + 1]) ? ($this->imgIdx + 1) : 0;
 
     $this->view->drawPage($article, $gallery, $this->tags);
   }

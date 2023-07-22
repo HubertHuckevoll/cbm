@@ -72,12 +72,12 @@ class cbmV extends cAppV
     $str = '';
     $protocol = ($_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
     $url = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-    $image0 = $article['images'][0]['src'] ?? null;
+    $image0 = $article['xml']->images[0]['src'] ?? null;
     $image0 = ($image0 !== null) ? $protocol.$_SERVER['HTTP_HOST'].$image0 : null;
-    $imageTitle = $article['images'][0]['title'] ?? '';
-    $summary = $article['summary'] ?? '';
-    $author = $article['author'] ?? $_SERVER['SERVER_NAME'];
-    $title = $article['title'] ?? '';
+    $imageTitle = $article['xml']->images[0]['title'] ?? '';
+    $summary = $article['xml']->summary ?? '';
+    $author = $article['xml']->author ?? $_SERVER['SERVER_NAME'];
+    $title = $article['xml']->title ?? '';
     $date = $article['date'] ?? '';
 
     $str .= '<meta name="description" content="'.$summary.'">';
@@ -175,7 +175,7 @@ class cbmV extends cAppV
   protected function renderImageList(array $article, string $tags): string
   {
     $html = '';
-    $imgs = $article['images'] ?? null;
+    $imgs = $article['xml']->images->children() ?? null;
     $name = $article['articleName'];
 
     if ($imgs !== null)
@@ -184,7 +184,10 @@ class cbmV extends cAppV
       {
         $img = $imgs[$i];
         $html .= '<a href="'.$this->renderHrefGallery($name, $i, $tags).'">'.
-                    '<img height="250" src="'.$img['src'].'" title="'.$img['title'].'" alt="'.$img['title'].'">'.
+                    '<img height="250"'.
+                         'src="/'.$article['store'].'/'.$article['articleBox'].'.assets/'.$img.'"'.
+                         'title="'.$img['title'].'"'.
+                         'alt="'.$img['title'].'">'.
                  '</a>';
       }
     }
@@ -206,8 +209,8 @@ class cbmV extends cAppV
     $nextIdx = $gallery['nextIdx'];
     $prevIdx = $gallery['prevIdx'];
 
-    $cur         = $article['images'][$curIdx]['src'];
-    $curDesc     = $article['images'][$curIdx]['title'];
+    $cur         = $article['xml']->images->children()[$curIdx];
+    $curDesc     = $article['xml']->images->children()[$curIdx]['title'];
     $articleName = $article['articleName'];
 
     $prev = $this->renderHrefGallery($articleName, $prevIdx, $tags);
@@ -222,7 +225,7 @@ class cbmV extends cAppV
       </p>
       <p>
         <a href="$next">
-          <img alt="$curDesc" title="$curDesc" src="$cur">
+          <img alt="$curDesc" title="$curDesc" src="/{$article['store']}/{$article['articleBox']}.assets/$cur">
         </a>
       </p>
       <p>
@@ -246,8 +249,8 @@ class cbmV extends cAppV
     foreach($articles as $item)
     {
       $listHtml .= '<li>'.
-                     '<a href="'.$this->renderHrefArticle($item['articleName'], $tags).'">'.$item['title'].'</a>'.
-                     '<p>'.$item['summary'].'</p>'.
+                     '<a href="'.$this->renderHrefArticle($item['articleName'], $tags).'">'.$item['xml']->title.'</a>'.
+                     '<p>'.$item['xml']->summary.'</p>'.
                    '</li>';
     }
     $listHtml .= '</ul>';
@@ -316,6 +319,36 @@ class cbmV extends cAppV
     }
 
     return $str;
+  }
+
+  /**
+   * Summary of reworkURLs
+   * @param mixed $html
+   * @return array|string|null
+   * ________________________________________________________________
+   */
+  protected function reworkURLs(string $html, string $store, string $articleBox): array|string|null
+  {
+    // rework image urls
+    $pattern = '/src="([^\/]*)"/mU';
+    $replacement = 'src="/'.$store.'/'.$articleBox.'.assets/'.'$1"';
+    $html = preg_replace($pattern, $replacement, $html);
+
+    // rework hrefs with download attribute
+    $pattern = '/<a.*href="(.*)".*>/mU';
+    $links = [];
+    if (preg_match_all($pattern, $html, $links, PREG_SET_ORDER, 0) > 0)
+    {
+      foreach ($links as $link)
+      {
+        if (strpos(strtolower($link[0]), 'download') !== false)
+        {
+          $html = str_replace('href="'.$link[1].'"', 'href="'.'/'.$store.'/'.$articleBox.'.assets/'.$link[1].'"', $html);
+        }
+      }
+    }
+
+    return $html;
   }
 
 }

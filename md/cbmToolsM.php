@@ -1,6 +1,6 @@
 <?php
 
-trait cbmArticleToolsM
+trait cbmToolsM
 {
   /**
    * parse the filename into date, articleName and tags
