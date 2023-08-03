@@ -67,46 +67,40 @@ class cbmV extends cAppV
    * @return string
    * ________________________________________________________________
    */
-  protected function renderArticleMetadata(array $article): string
+  protected function renderArticleMetadata(array $metadata): string
   {
     $str = '';
     $protocol = ($_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
     $url = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
-    $image0 = $article['xml']->images->children()[0] ?? null;
-    $image0 = ($image0 !== null) ? $this->makeAssetURL($article, $image0, true) : null;
+    if (extract($metadata) == count($metadata))
+    {
+      $str .= '<meta name="description" content="'.$summary.'">';
+      $str .= '<meta name="author" content="'.$author.'">';
+      $str .= ($image0 !== null) ? '<meta property="og:image" content="'.$image0.'">' : '';
+      $str .= '<meta property="og:title" content="'.htmlentities($title).'">';
+      $str .= '<meta property="og:description" content="'.htmlentities($summary).'">';
+      $str .= '<meta property="og:type" content="Website">';
+      $str .= '<meta property="og:url" content="'.$url.'">';
+      $str .= '<meta property="og:site_name" content="'.$_SERVER['SERVER_NAME'].'">';
 
-    $imageTitle = $article['xml']->images->children()[0]['title'] ?? '';
-    $summary = $article['xml']->summary ?? '';
-    $author = $article['xml']->author ?? $_SERVER['SERVER_NAME'];
-    $title = $article['xml']->title ?? '';
-    $date = $article['date'] ?? '';
+      $str .= '<meta name="twitter:card" content="'.$imageTitle.'">';
+      $str .= '<meta name="twitter:url" content="'.$url.'">';
+      $str .= '<meta name="twitter:title" content="'.$title.'">';
+      $str .= '<meta name="twitter:description" content="'.$summary.'">';
+      $str .= '<meta name="twitter:image" content="'.$image0.'">';
 
-    $str .= '<meta name="description" content="'.$summary.'">';
-    $str .= '<meta name="author" content="'.$author.'">';
-    $str .= ($image0 !== null) ? '<meta property="og:image" content="'.$image0.'">' : '';
-    $str .= '<meta property="og:title" content="'.htmlentities($title).'">';
-    $str .= '<meta property="og:description" content="'.htmlentities($summary).'">';
-    $str .= '<meta property="og:type" content="Website">';
-    $str .= '<meta property="og:url" content="'.$url.'">';
-    $str .= '<meta property="og:site_name" content="'.$_SERVER['SERVER_NAME'].'">';
-
-    $str .= '<meta name="twitter:card" content="'.$imageTitle.'">';
-    $str .= '<meta name="twitter:url" content="'.$url.'">';
-    $str .= '<meta name="twitter:title" content="'.$title.'">';
-    $str .= '<meta name="twitter:description" content="'.$summary.'">';
-    $str .= '<meta name="twitter:image" content="'.$image0.'">';
-
-    $str .= '<script type="application/ld+json">'.
-            '{'.
-               '"@context": "https://schema.org",'.
-               '"@type": "Article",'.
-               '"headline": "'.$title.'",'.
-               '"author": "'.$author.'",'.
-               '"dateModified": "'.$this->renderTimestampToIso8601($date).'",'.
-               (($image0 != '') ? '"image": ["'.$image0.'"]' : '').
-            '}'.
-            '</script>';
+      $str .= '<script type="application/ld+json">'.
+              '{'.
+                 '"@context": "https://schema.org",'.
+                 '"@type": "Article",'.
+                 '"headline": "'.$title.'",'.
+                 '"author": "'.$author.'",'.
+                 '"dateModified": "'.$this->renderTimestampToIso8601($date).'",'.
+                 (($image0 != '') ? '"image": ["'.$image0.'"]' : '').
+              '}'.
+              '</script>';
+    }
 
     return $str;
   }
@@ -163,6 +157,49 @@ class cbmV extends cAppV
   protected function renderHrefPages(string $articleName): string
   {
     $str = 'index.php/pagesC/show/'.$articleName;
+
+    return $str;
+  }
+
+  /**
+   * Summary of reworkURLs
+   * @param mixed $html
+   * @return array|string|null
+   * ________________________________________________________________
+   */
+  protected function reworkURLs(array $article, string $html): ?string
+  {
+    // rework hrefs with download attribute
+    $pattern = '/<a.*href="(.*)".*>/mU';
+    $links = [];
+    if (preg_match_all($pattern, $html, $links, PREG_SET_ORDER, 0) > 0)
+    {
+      foreach ($links as $link)
+      {
+        if (strpos(strtolower($link[0]), 'download') !== false)
+        {
+          $html = str_replace('href="'.$link[1].'"', 'href="'.$this->makeAssetURL($article, $link[1]).'"', $html);
+        }
+      }
+    }
+
+    return $html;
+  }
+
+  /**
+   * make a URL for an asset
+   * ________________________________________________________________
+   */
+  protected function makeAssetURL($article, $file, $absoluteURL = false): string
+  {
+    $str = '';
+    $str = '/'.$article['store'].'/'.$article['articleBox'].'.assets/'.$file;
+
+    if ($absoluteURL == true)
+    {
+      $protocol = ($_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+      $str = $protocol.$_SERVER['HTTP_HOST'].$str;
+    }
 
     return $str;
   }
@@ -323,45 +360,6 @@ class cbmV extends cAppV
     return $str;
   }
 
-  /**
-   * Summary of reworkURLs
-   * @param mixed $html
-   * @return array|string|null
-   * ________________________________________________________________
-   */
-  protected function reworkURLs(array $article, string $html): ?string
-  {
-    // rework hrefs with download attribute
-    $pattern = '/<a.*href="(.*)".*>/mU';
-    $links = [];
-    if (preg_match_all($pattern, $html, $links, PREG_SET_ORDER, 0) > 0)
-    {
-      foreach ($links as $link)
-      {
-        if (strpos(strtolower($link[0]), 'download') !== false)
-        {
-          $html = str_replace('href="'.$link[1].'"', 'href="'.$this->makeAssetURL($article, $link[1]).'"', $html);
-        }
-      }
-    }
-
-    return $html;
-  }
-
-  protected function makeAssetURL($article, $file, $absoluteURL = false): string
-  {
-    $str = '';
-    $str = '/'.$article['store'].'/'.$article['articleBox'].'.assets/'.$file;
-
-    if ($absoluteURL == true)
-    {
-      $protocol = ($_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
-      // $_SERVER['REQUEST_URI'];
-      $str = $protocol.$_SERVER['HTTP_HOST'].$str;
-    }
-
-    return $str;
-  }
 
 }
 
