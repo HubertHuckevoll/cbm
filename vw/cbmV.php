@@ -178,7 +178,7 @@ class cbmV extends cAppV
       {
         if (strpos(strtolower($link[0]), 'download') !== false)
         {
-          $html = str_replace('href="'.$link[1].'"', 'href="'.$this->makeAssetURL($article, $link[1]).'"', $html);
+          $html = str_replace('href="'.$link[1].'"', 'href="'.$this->makeAssetURL($article['store'], $article['articleBox'], $link[1]).'"', $html);
         }
       }
     }
@@ -190,10 +190,10 @@ class cbmV extends cAppV
    * make a URL for an asset
    * ________________________________________________________________
    */
-  protected function makeAssetURL($article, $file, $absoluteURL = false): string
+  protected function makeAssetURL(string $store, string $articleBox, string $file, bool $absoluteURL = false): string
   {
     $str = '';
-    $str = '/'.$article['store'].'/'.$article['articleBox'].'.assets/'.$file;
+    $str = '/'.$store.'/'.$articleBox.'.assets/'.$file;
 
     if ($absoluteURL == true)
     {
@@ -224,7 +224,7 @@ class cbmV extends cAppV
         $img = $imgs[$i];
         $html .= '<a href="'.$this->renderHrefGallery($name, $i, $tags).'">'.
                     '<img height="250"'.
-                         'src="'.$this->makeAssetURL($article, $img).'"'.
+                         'src="'.$this->makeAssetURL($article['store'], $article['articleBox'], $img).'"'.
                          'title="'.$img['title'].'"'.
                          'alt="'.$img['title'].'">'.
                  '</a>';
@@ -242,35 +242,30 @@ class cbmV extends cAppV
    * @return string
    * ________________________________________________________________
    */
-  protected function renderGallery(array $article, array $gallery, string $tags): string
+  protected function renderGallery(array $gallery, string $tags): string
   {
-    $curIdx  = $gallery['curIdx'];
-    $nextIdx = $gallery['nextIdx'];
-    $prevIdx = $gallery['prevIdx'];
+    if (extract($gallery) == count($gallery))
+    {
+      $prev = $this->renderHrefGallery($articleName, $prevIdx, $tags);
+      $next = $this->renderHrefGallery($articleName, $nextIdx, $tags);
+      $back = $this->renderHrefArticle($articleName, $tags);
 
-    $cur         = $article['xml']->images->children()[$curIdx];
-    $curDesc     = $article['xml']->images->children()[$curIdx]['title'];
-    $articleName = $article['articleName'];
-
-    $prev = $this->renderHrefGallery($articleName, $prevIdx, $tags);
-    $next = $this->renderHrefGallery($articleName, $nextIdx, $tags);
-    $back = $this->renderHrefArticle($articleName, $tags);
-
-    $erg = <<<GALL
-      <p>
-        <a href="$prev" title="Previous"><button>&laquo;</button></a>
-        <a href="$next" title="Next"><button>&raquo;</button></a>
-        <a href="$back" title="Back"><button>x</button></a>
-      </p>
-      <p>
-        <a href="$next">
-          <img alt="$curDesc" title="$curDesc" src="{$this->makeAssetURL($article, $cur)}">
-        </a>
-      </p>
-      <p>
-        $curDesc
-      </p>
-    GALL;
+      $erg = <<<GALL
+        <p>
+          <a href="$prev" title="Previous"><button>&laquo;</button></a>
+          <a href="$next" title="Next"><button>&raquo;</button></a>
+          <a href="$back" title="Back"><button>x</button></a>
+        </p>
+        <p>
+          <a href="$next">
+            <img alt="$curDesc" title="$curDesc" src="{$this->makeAssetURL($store, $articleBox, $cur)}">
+          </a>
+        </p>
+        <p>
+          $curDesc
+        </p>
+      GALL;
+    }
 
     return $erg;
   }

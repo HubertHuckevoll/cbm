@@ -35,6 +35,11 @@ class cbmGalleryC extends cPageC
     $gallery['curIdx']  = isset($article['xml']->images->children()[$this->imgIdx]) ? $this->imgIdx : 0;
     $gallery['prevIdx'] = isset($article['xml']->images->children()[$this->imgIdx - 1]) ? ($this->imgIdx - 1) : ($article['xml']->images->count() - 1);
     $gallery['nextIdx'] = isset($article['xml']->images->children()[$this->imgIdx + 1]) ? ($this->imgIdx + 1) : 0;
+    $gallery['cur']         = $article['xml']->images->children()[$gallery['curIdx']];
+    $gallery['curDesc']     = $article['xml']->images->children()[$gallery['curIdx']]['title'];
+    $gallery['store']       = $this->store;
+    $gallery['articleBox']  = $this->articleBox;
+    $gallery['articleName'] = $this->articleName;
 
     $this->view->drawPage($article, $gallery, $this->tags);
   }
